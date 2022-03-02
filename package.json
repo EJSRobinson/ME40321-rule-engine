@@ -1,0 +1,22 @@
+{
+  "name": "me40321-rule-engine",
+  "version": "0.0.1",
+  "description": "ME40321 Rule Engine",
+  "main": "engine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EJSRobinson/ME40321-rule-engine.git"
+  },
+  "keywords": [
+    "me40321"
+  ],
+  "author": "EJSRobinson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EJSRobinson/ME40321-rule-engine/issues"
+  },
+  "homepage": "https://github.com/EJSRobinson/ME40321-rule-engine#readme"
+}
