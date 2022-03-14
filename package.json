@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/EJSRobinson/ME40321-rule-engine#readme",
   "dependencies": {
-    "me40321-database": "^0.0.1"
+    "me40321-database": "^0.0.6"
   },
   "type": "module"
 }

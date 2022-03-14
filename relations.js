@@ -62,7 +62,7 @@ export class Relations {
           solve: this.funcs.testfunc,
         },
         3: {
-          vars: ['cr', 'cr', 'stress'],
+          vars: ['cr', 'cr', 'Sigma'],
           solve: this.funcs.testfunc,
         },
         4: {
@@ -158,14 +158,14 @@ export class Relations {
       // Lift Force Coefficient
       Cl: {
         1: {
-          vars: ['Cn', 'Ctan', 'AoA'],
+          vars: ['Cn', 'Cta', 'AoA'],
           solve: this.funcs.testfunc,
         },
       },
       // Drag Force Coefficient
       Cd: {
         1: {
-          vars: ['Cn', 'Ctan', 'AoA'],
+          vars: ['Cn', 'Cta', 'AoA'],
           solve: this.funcs.testfunc,
         },
       },
