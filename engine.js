@@ -27,7 +27,7 @@ function displayState() {
     }
   }
   console.table(pairs);
-  console.log(`${(trueCount / pairs.length) * 100}% Defined`);
+  console.log(`${parseInt((trueCount / pairs.length) * 100)}% Defined`);
 }
 
 function checkDefined(list) {
@@ -87,7 +87,23 @@ setInterval(() => {
 }, 1500);
 
 let counter = 0;
-let sets = ['ct', 'cr', 'S', 'TEsw', 'Kn'];
+let sets = [
+  'Aref',
+  'ct',
+  'cr',
+  'S',
+  'TEsw',
+  'Kn',
+  'M',
+  'AoA',
+  'XCog',
+  't',
+  'm',
+  'Alt',
+  'N',
+  'CnaComp',
+  'Xcomp',
+];
 setInterval(() => {
   let prop = propsMap.get(sets[counter]);
   prop.value.max = 1;
