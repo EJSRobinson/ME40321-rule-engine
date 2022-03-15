@@ -1,5 +1,11 @@
 //Define Relations
 
+// PERMUTATION TYPES
+// max: Maximum
+// min: Minimum
+// val: Value, for those without max or min e.g. material type
+// any: Use max or min
+
 export class Relations {
   funcs = {};
   constructor(funcs) {
@@ -7,33 +13,38 @@ export class Relations {
     this.rules = {
       //Tip Chord
       ct: {
+        //Solve for Max
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'cr', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'Afin', perm: '' },
+              { name: 'cr', perm: 'min' },
+              { name: 'S', perm: 'min' },
+              { name: 'Afin', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'cr', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'TEsw', perm: '' },
-              { name: 'LEsw', perm: '' },
+              { name: 'cr', perm: 'max' },
+              { name: 'S', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'LEsw', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: true,
             vars: [
               { name: 'cr', perm: 'max' },
-              { name: 'TR', perm: 'max' },
+              { name: 'TR', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           4: {
+            enbaled: false,
             vars: [
               { name: 'cr', perm: '' },
               { name: 'S', perm: '' },
@@ -42,6 +53,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           5: {
+            enbaled: false,
             vars: [
               { name: 'cr', perm: '' },
               { name: 'S', perm: '' },
@@ -56,30 +68,34 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'Afin', perm: '' },
+              { name: 'ct', perm: 'min' },
+              { name: 'S', perm: 'min' },
+              { name: 'Afin', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'TEsw', perm: '' },
-              { name: 'LEsw', perm: '' },
+              { name: 'ct', perm: 'max' },
+              { name: 'S', perm: 'max' },
+              { name: 'TEsw', perm: 'max' },
+              { name: 'LEsw', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'TR', perm: '' },
+              { name: 'ct', perm: 'max' },
+              { name: 'TR', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           4: {
+            enbaled: false,
             vars: [
               { name: 'ct', perm: '' },
               { name: 'S', perm: '' },
@@ -88,6 +104,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           5: {
+            enbaled: false,
             vars: [
               { name: 'ct', perm: '' },
               { name: 'S', perm: '' },
@@ -102,23 +119,26 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'cr', perm: '' },
-              { name: 'Afin', perm: '' },
+              { name: 'ct', perm: 'min' },
+              { name: 'cr', perm: 'min' },
+              { name: 'Afin', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'ct', perm: '' },
-              { name: 'LEsw', perm: '' },
-              { name: 'TEsw', perm: '' },
+              { name: 'ct', perm: 'min' },
+              { name: 'cr', perm: 'max' },
+              { name: 'LEsw', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: false,
             vars: [
               { name: 'cr', perm: '' },
               { name: 'ct', perm: '' },
@@ -127,6 +147,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           4: {
+            enbaled: false,
             vars: [
               { name: 'ct', perm: '' },
               { name: 'cr', perm: '' },
@@ -135,9 +156,10 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           5: {
+            enbaled: true,
             vars: [
-              { name: 'AR', perm: '' },
-              { name: 'Afin', perm: '' },
+              { name: 'AR', perm: 'max' },
+              { name: 'Afin', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -148,25 +170,19 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'S', perm: '' },
-              { name: 'Afin', perm: '' },
+              { name: 'S', perm: 'max' },
+              { name: 'Afin', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'Cna', perm: '' },
-              { name: 'TR', perm: '' },
-              { name: 'LEsw', perm: '' },
-            ],
-            solve: this.funcs.testfunc,
-          },
-          3: {
-            vars: [
-              { name: 'Cna', perm: '' },
-              { name: 'TR', perm: '' },
-              { name: 'TWsw', perm: '' },
+              { name: 'TR', perm: 'min' },
+              { name: 'LEsw', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -177,25 +193,19 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cna', perm: '' },
-              { name: 'AR', perm: '' },
-              { name: 'LEsw', perm: '' },
-            ],
-            solve: this.funcs.testfunc,
-          },
-          2: {
-            vars: [
-              { name: 'Cna', perm: '' },
-              { name: 'AR', perm: '' },
-              { name: 'TEsw', perm: '' },
+              { name: 'AR', perm: 'min' },
+              { name: 'LEsw', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'cr', perm: '' },
+              { name: 'ct', perm: 'max' },
+              { name: 'cr', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -206,25 +216,28 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'cr', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'ct', perm: 'max' },
+              { name: 'cr', perm: 'max' },
+              { name: 'S', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'AR', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'AR', perm: 'min' },
+              { name: 'S', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: true,
             vars: [
-              { name: 'm', perm: '' },
-              { name: 't', perm: '' },
-              { name: 'Mat', perm: '' },
+              { name: 'm', perm: 'max' },
+              { name: 't', perm: 'min' },
+              { name: 'Mat', perm: 'val' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -235,26 +248,27 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Kn', perm: '' },
-              { name: 'Xfin', perm: '' },
-              { name: 'N', perm: '' },
+              { name: 'Kn', perm: 'max' },
+              { name: 'Xfin', perm: 'min' },
+              { name: 'Xcog', perm: 'max' },
+              { name: 'N', perm: 'min' },
+              { name: 'CnaComp', perm: 'min' },
+              { name: 'Xcomp', perm: 'min' },
+              { name: 'Aref', perm: 'any' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'TR', perm: '' },
-              { name: 'AR', perm: '' },
-              { name: 'TWsw', perm: '' },
-            ],
-            solve: this.funcs.testfunc,
-          },
-          3: {
-            vars: [
-              { name: 'TR', perm: '' },
-              { name: 'AR', perm: '' },
-              { name: 'LEsw', perm: '' },
+              { name: 'ct', perm: 'max' },
+              { name: 'TR', perm: 'min' },
+              { name: 'AR', perm: 'min' },
+              { name: 'TWsw', perm: 'min' },
+              { name: 'LEsw', perm: 'min' },
+              { name: 'Aref', perm: 'any' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -262,12 +276,13 @@ export class Relations {
       },
       // Angle of Attack
       AoA: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cn', perm: '' },
-              { name: 'Cna', perm: '' },
+              { name: 'Cn', perm: 'max' },
+              { name: 'Cna', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -275,12 +290,13 @@ export class Relations {
       },
       // Normal Force Coefficient
       Cn: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'AoA', perm: '' },
-              { name: 'Cna', perm: '' },
+              { name: 'AoA', perm: 'max' },
+              { name: 'Cna', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -288,12 +304,13 @@ export class Relations {
       },
       // Tangential Force Coefficient
       Ct: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'AoA', perm: '' },
-              { name: 'Cta', perm: '' },
+              { name: 'AoA', perm: 'max' },
+              { name: 'Cta', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -301,13 +318,14 @@ export class Relations {
       },
       // Lift Force Coefficient
       Cl: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cn', perm: '' },
-              { name: 'Cta', perm: '' },
-              { name: 'AoA', perm: '' },
+              { name: 'Cn', perm: 'max' },
+              { name: 'Ct', perm: 'max' },
+              { name: 'AoA', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -315,13 +333,14 @@ export class Relations {
       },
       // Drag Force Coefficient
       Cd: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cn', perm: '' },
-              { name: 'Cta', perm: '' },
-              { name: 'AoA', perm: '' },
+              { name: 'Cn', perm: 'max' },
+              { name: 'Ct', perm: 'max' },
+              { name: 'AoA', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -329,16 +348,15 @@ export class Relations {
       },
       // Lift Force
       Fl: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cl', perm: '' },
-              { name: 'Afin', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'M', perm: '' },
-              { name: 'Alt', perm: '' },
-              { name: 'Ta', perm: '' },
+              { name: 'Cl', perm: 'max' },
+              { name: 'Aref', perm: 'any' },
+              { name: 'S', perm: 'max' },
+              { name: 'V', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -346,16 +364,15 @@ export class Relations {
       },
       // Drag Force
       Fd: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cd', perm: '' },
-              { name: 'Afin', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'M', perm: '' },
-              { name: 'Alt', perm: '' },
-              { name: 'Ta', perm: '' },
+              { name: 'Cd', perm: 'max' },
+              { name: 'Aref', perm: 'any' },
+              { name: 'S', perm: 'max' },
+              { name: 'V', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -363,8 +380,9 @@ export class Relations {
       },
       // Stress
       Sigma: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
+          enbaled: false,
           1: {
             vars: [
               { name: 'cr', perm: '' },
@@ -376,6 +394,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: false,
             vars: [
               { name: 'cr', perm: '' },
               { name: 'ct', perm: '' },
@@ -386,6 +405,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: false,
             vars: [
               { name: 'cr', perm: '' },
               { name: 'ct', perm: '' },
@@ -396,6 +416,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           4: {
+            enbaled: false,
             vars: [
               { name: 'cr', perm: '' },
               { name: 'TWsw', perm: '' },
@@ -406,6 +427,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           5: {
+            enbaled: false,
             vars: [
               { name: 'ct', perm: '' },
               { name: 'TWsw', perm: '' },
@@ -422,6 +444,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: false,
             vars: [
               { name: 'ct', perm: '' },
               { name: 'cr', perm: '' },
@@ -433,6 +456,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: false,
             vars: [
               { name: 'ct', perm: '' },
               { name: 'cr', perm: '' },
@@ -444,6 +468,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: false,
             vars: [
               { name: 'LEsw', perm: '' },
               { name: 'cr', perm: '' },
@@ -455,6 +480,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           4: {
+            enbaled: false,
             vars: [
               { name: 'LEsw', perm: '' },
               { name: 'ct', perm: '' },
@@ -469,9 +495,10 @@ export class Relations {
       },
       // Deflection
       v: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: false,
             vars: [
               { name: 'Sigma', perm: '' },
               { name: 't', perm: '' },
@@ -483,6 +510,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: false,
             vars: [
               { name: 'Sigma', perm: '' },
               { name: 't', perm: '' },
@@ -494,6 +522,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: false,
             vars: [
               { name: 'Sigma', perm: '' },
               { name: 't', perm: '' },
@@ -505,6 +534,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           4: {
+            enbaled: false,
             vars: [
               { name: 'Sigma', perm: '' },
               { name: 't', perm: '' },
@@ -522,17 +552,19 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'mT', perm: '' },
-              { name: 'N', perm: '' },
+              { name: 'mT', perm: 'max' },
+              { name: 'N', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'Afin', perm: '' },
-              { name: 't', perm: '' },
-              { name: 'Mat', perm: '' },
+              { name: 'Afin', perm: 'max' },
+              { name: 't', perm: 'max' },
+              { name: 'Mat', perm: 'val' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -543,9 +575,10 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'm', perm: '' },
-              { name: 'N', perm: '' },
+              { name: 'm', perm: 'max' },
+              { name: 'N', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -556,19 +589,22 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'm', perm: '' },
-              { name: 'mT', perm: '' },
+              { name: 'm', perm: 'min' },
+              { name: 'mT', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'Kn', perm: '' },
-              { name: 'Cna', perm: '' },
-              { name: 'Xfin', perm: '' },
-              { name: 'CnaComp', perm: '' },
-              { name: 'Xcomp', perm: '' },
+              { name: 'Kn', perm: 'max' },
+              { name: 'Cna', perm: 'min' },
+              { name: 'Xfin', perm: 'min' },
+              { name: 'CnaComp', perm: 'min' },
+              { name: 'Xcomp', perm: 'min' },
+              { name: 'Aref', perm: 'any' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -579,29 +615,32 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'cr', perm: '' },
-              { name: 'ct', perm: '' },
-              { name: 'TEsw', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'cr', perm: 'max' },
+              { name: 'ct', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'S', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'cr', perm: '' },
-              { name: 'TR', perm: '' },
-              { name: 'TEsw', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'cr', perm: 'max' },
+              { name: 'TR', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'S', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'TR', perm: '' },
-              { name: 'TEsw', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'ct', perm: 'min' },
+              { name: 'TR', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'S', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -612,29 +651,32 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'cr', perm: '' },
-              { name: 'ct', perm: '' },
-              { name: 'LEsw', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'cr', perm: 'max' },
+              { name: 'ct', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'S', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: true,
             vars: [
-              { name: 'cr', perm: '' },
-              { name: 'TR', perm: '' },
-              { name: 'LEsw', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'cr', perm: 'max' },
+              { name: 'TR', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'S', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
           3: {
+            enbaled: true,
             vars: [
-              { name: 'ct', perm: '' },
-              { name: 'TR', perm: '' },
-              { name: 'LEsw', perm: '' },
-              { name: 'S', perm: '' },
+              { name: 'ct', perm: 'min' },
+              { name: 'TR', perm: 'min' },
+              { name: 'TEsw', perm: 'min' },
+              { name: 'S', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -645,20 +687,15 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enabled: true,
             vars: [
-              { name: 'Kn', perm: '' },
-              { name: 'Cna', perm: '' },
-              { name: 'N', perm: '' },
-              { name: 'CnaComp', perm: '' },
-              { name: 'Xcomp', perm: '' },
-            ],
-            solve: this.funcs.testfunc,
-          },
-          2: {
-            vars: [
-              { name: 'Kn', perm: '' },
-              { name: 'Cna', perm: '' },
-              { name: 'N', perm: '' },
+              { name: 'Kn', perm: 'max' },
+              { name: 'Cna', perm: 'min' },
+              { name: 'N', perm: 'min' },
+              { name: 'Xcog', perm: 'max' },
+              { name: 'CnaComp', perm: 'min' },
+              { name: 'Xcomp', perm: 'min' },
+              { name: 'Aref', perm: 'any' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -669,18 +706,21 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enabled: true,
             vars: [
-              { name: 'Cna', perm: '' },
-              { name: 'Xfin', perm: '' },
-              { name: 'N', perm: '' },
-              { name: 'CnaComp', perm: '' },
-              { name: 'Xcomp', perm: '' },
-              { name: 'N', perm: '' },
-              { name: 'Xcog', perm: '' },
+              { name: 'Cna', perm: 'max' },
+              { name: 'Xfin', perm: 'max' },
+              { name: 'N', perm: 'max' },
+              { name: 'CnaComp', perm: 'max' },
+              { name: 'Xcomp', perm: 'max' },
+              { name: 'N', perm: 'max' },
+              { name: 'Xcog', perm: 'min' },
+              { name: 'Aref', perm: 'any' },
             ],
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: false,
             vars: [
               { name: 'C1', perm: '' },
               { name: 'V', perm: '' },
@@ -695,13 +735,14 @@ export class Relations {
       },
       // Mach Number
       M: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'V', perm: '' },
-              { name: 'Ta', perm: '' },
-              { name: 'Alt', perm: '' },
+              { name: 'V', perm: 'max' },
+              { name: 'Ta', perm: 'min' },
+              { name: 'Alt', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -709,13 +750,14 @@ export class Relations {
       },
       // Velocity
       V: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'M', perm: '' },
-              { name: 'Ta', perm: '' },
-              { name: 'Alt', perm: '' },
+              { name: 'M', perm: 'max' },
+              { name: 'Ta', perm: 'max' },
+              { name: 'Alt', perm: 'min' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -726,6 +768,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: false,
             vars: [
               { name: 'Kn', perm: '' },
               { name: 'V', perm: '' },
@@ -737,6 +780,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: false,
             vars: [
               { name: 'Wn', perm: '' },
               { name: 'I', perm: '' },
@@ -750,6 +794,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: false,
             vars: [
               { name: 'C1', perm: '' },
               { name: 'I', perm: '' },
@@ -757,6 +802,7 @@ export class Relations {
             solve: this.funcs.testfunc,
           },
           2: {
+            enbaled: false,
             vars: [{ name: 'Tp', perm: '' }],
             solve: this.funcs.testfunc,
           },
@@ -767,6 +813,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: false,
             vars: [
               { name: 'C2a', perm: '' },
               { name: 'C2p', perm: '' },
@@ -782,6 +829,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
+            enbaled: false,
             vars: [{ name: 'Wn', perm: '' }],
             solve: this.funcs.testfunc,
           },
@@ -789,16 +837,15 @@ export class Relations {
       },
       // Normal Force
       Fn: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Cn', perm: '' },
-              { name: 'Afin', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'M', perm: '' },
-              { name: 'Alt', perm: '' },
-              { name: 'Ta', perm: '' },
+              { name: 'Cn', perm: 'max' },
+              { name: 'Aref', perm: 'any' },
+              { name: 'S', perm: 'max' },
+              { name: 'V', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
@@ -806,16 +853,15 @@ export class Relations {
       },
       // Tangential Force
       Ft: {
-        type: 'max0',
+        type: 'symetric',
         relations: {
           1: {
+            enbaled: true,
             vars: [
-              { name: 'Ct', perm: '' },
-              { name: 'Afin', perm: '' },
-              { name: 'S', perm: '' },
-              { name: 'M', perm: '' },
-              { name: 'Alt', perm: '' },
-              { name: 'Ta', perm: '' },
+              { name: 'Ct', perm: 'max' },
+              { name: 'Aref', perm: 'any' },
+              { name: 'S', perm: 'max' },
+              { name: 'V', perm: 'max' },
             ],
             solve: this.funcs.testfunc,
           },
