@@ -110,15 +110,15 @@ function checkDefinedMirror(vars) {
   return checkDefined(vars, true);
 }
 
-setInterval(() => {
+setInterval(async () => {
   for (const [propName, prop] of Object.entries(relations.rules)) {
     for (const [entryKey, entry] of Object.entries(prop.relations)) {
       if (entry.enbaled) {
         if (checkDefinedNormal(entry.vars)) {
-          entry.solve.normal();
+          await entry.solve.normal();
         }
         if (checkDefinedMirror(entry.vars)) {
-          entry.solve.mirror();
+          await entry.solve.mirror();
         }
       }
     }

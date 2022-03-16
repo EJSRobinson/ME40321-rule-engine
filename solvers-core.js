@@ -1,30 +1,25 @@
-function testFunc() {
-  return 1;
-}
-function testFunc2() {
-  return 0;
-}
+import { remoteSolvers } from './api-client.js';
 
 const ct = {
   1: {
-    normal: testFunc,
-    mirror: testFunc2,
+    normal: remoteSolvers('/test'),
+    mirror: remoteSolvers('/test'),
   },
   2: {
-    normal: function () {},
-    mirror: function () {},
+    normal: remoteSolvers('/test'),
+    mirror: remoteSolvers('/test'),
   },
   3: {
-    normal: function () {},
-    mirror: function () {},
+    normal: remoteSolvers('/test'),
+    mirror: remoteSolvers('/test'),
   },
   4: {
-    normal: function () {},
-    mirror: function () {},
+    normal: remoteSolvers('/test'),
+    mirror: remoteSolvers('/test'),
   },
   5: {
-    normal: function () {},
-    mirror: function () {},
+    normal: remoteSolvers('/test'),
+    mirror: remoteSolvers('/test'),
   },
 };
 
