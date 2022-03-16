@@ -5,6 +5,29 @@ function testFunc2() {
   return 0;
 }
 
+const ct = {
+  1: {
+    normal: testFunc,
+    mirror: testFunc2,
+  },
+  2: {
+    normal: function () {},
+    mirror: function () {},
+  },
+  3: {
+    normal: function () {},
+    mirror: function () {},
+  },
+  4: {
+    normal: function () {},
+    mirror: function () {},
+  },
+  5: {
+    normal: function () {},
+    mirror: function () {},
+  },
+};
+
 export const core = {
   ct: ct,
   cr: {},
@@ -38,27 +61,4 @@ export const core = {
   Tp: {},
   Fn: {},
   Ft: {},
-};
-
-const ct = {
-  1: {
-    max: function () {},
-    min: function () {},
-  },
-  2: {
-    max: function () {},
-    min: function () {},
-  },
-  3: {
-    max: function () {},
-    min: function () {},
-  },
-  4: {
-    max: function () {},
-    min: function () {},
-  },
-  5: {
-    max: function () {},
-    min: function () {},
-  },
 };
