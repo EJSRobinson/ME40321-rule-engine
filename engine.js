@@ -2,7 +2,7 @@
 
 //IMPORT RELATIONS
 //IMPORT VARS
-import { Relations } from './relations.js';
+import { Relations } from './relations-core.js';
 import { getAll } from 'me40321-database';
 
 const functionsCore = {
@@ -30,32 +30,46 @@ function displayState() {
   console.log(`${parseInt((trueCount / pairs.length) * 100)}% Defined`);
 }
 
-function checkDefined(list) {
+function checkDefined(vars) {
   let result = true;
-  for (let i = 0; i < list.length; i++) {
-    let property = propsMap.get(list[i]);
-
-    if (property.value.typeName === 'quant') {
-      if (property.value.max === null) {
-        //Handle Min
-        result = false;
-      }
-    }
-    if (property.value.typeName === 'range') {
-      if (property.value.max.length === 0) {
-        //Handle Min
-        result = false;
-      }
-    }
-    if (property.value.typeName === 'qual') {
-      if (property.value.val === null) {
-        result = false;
-      }
-    }
-    if (property.value.typeName === 'list') {
-      if (property.value.val === null) {
-        result = false;
-      }
+  for (let i = 0; i < vars.length; i++) {
+    let property = propsMap.get(vars[i].name);
+    switch (property.value.typeName) {
+      case 'quant':
+        switch (vars[i].perm) {
+          case 'max':
+            if (property.value.max === null) {
+              result = false;
+            }
+          case 'min':
+            if (property.value.min === null) {
+              result = false;
+            }
+          case 'any':
+            if (property.value.max === null && property.value.min === null) {
+              result = false;
+            }
+        }
+      case 'range':
+        switch (vars[i].perm) {
+          case 'max':
+            if (property.value.max.length >= 1) {
+              result = false;
+            }
+          case 'min':
+            if (property.value.min.length >= 1) {
+              result = false;
+            }
+          case 'any':
+            if (property.value.max.length >= 1 && property.value.min.length >= 1) {
+              result = false;
+            }
+        }
+      case 'qual':
+      case 'list':
+        if (property.value.val === null) {
+          result = false;
+        }
     }
   }
   return result;
@@ -63,56 +77,42 @@ function checkDefined(list) {
 
 setInterval(() => {
   for (const [propName, prop] of Object.entries(relations.rules)) {
-    for (const [entryKey, entry] of Object.entries(prop)) {
-      if (checkDefined(entry.vars)) {
-        //console.log(entry.vars);
-        const property = propsMap.get(propName);
-        if (property.value.typeName === 'quant') {
-          property.value.max = 1;
-        }
-        if (property.value.typeName === 'range') {
-          property.value.max = [1];
-        }
-        if (property.value.typeName === 'qual') {
-          property.value.val = '1';
-        }
-        if (property.value.typeName === 'list') {
-          property.value.val = '1';
-        }
-        propsMap.set(propName, property);
+    for (const [entryKey, entry] of Object.entries(prop.relations)) {
+      if (entry.enbaled) {
+        checkDefined(entry.vars);
       }
     }
   }
-  displayState();
+  // displayState();
 }, 1500);
 
-let counter = 0;
-let sets = [
-  'Aref',
-  'ct',
-  'cr',
-  'S',
-  'TEsw',
-  'Kn',
-  'M',
-  'AoA',
-  'XCog',
-  't',
-  'm',
-  'Alt',
-  'N',
-  'CnaComp',
-  'Xcomp',
-];
-setInterval(() => {
-  let prop = propsMap.get(sets[counter]);
-  prop.value.max = 1;
-  propsMap.set(sets[counter], prop);
-  counter = counter + 1;
-  if (counter === sets.length) {
-    counter = 0;
-  }
-}, 3000);
+// let counter = 0;
+// let sets = [
+//   'Aref',
+//   'ct',
+//   'cr',
+//   'S',
+//   'TEsw',
+//   'Kn',
+//   'M',
+//   'AoA',
+//   'XCog',
+//   't',
+//   'm',
+//   'Alt',
+//   'N',
+//   'CnaComp',
+//   'Xcomp',
+// ];
+// setInterval(() => {
+//   let prop = propsMap.get(sets[counter]);
+//   prop.value.max = 1;
+//   propsMap.set(sets[counter], prop);
+//   counter = counter + 1;
+//   if (counter === sets.length) {
+//     counter = 0;
+//   }
+// }, 3000);
 
 //Run through relations
 //For each, check if required variables are defined
