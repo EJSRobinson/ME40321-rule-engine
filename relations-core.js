@@ -23,7 +23,7 @@ export class Relations {
               { name: 'S', perm: 'min' },
               { name: 'Afin', perm: 'max' },
             ],
-            solve: this.funcs.testfunc,
+            solve: this.funcs.ct[1],
           },
           2: {
             enbaled: true,
@@ -33,7 +33,7 @@ export class Relations {
               { name: 'TEsw', perm: 'min' },
               { name: 'LEsw', perm: 'min' },
             ],
-            solve: this.funcs.testfunc,
+            solve: this.funcs.ct[2],
           },
           3: {
             enbaled: true,
@@ -41,7 +41,7 @@ export class Relations {
               { name: 'cr', perm: 'max' },
               { name: 'TR', perm: 'min' },
             ],
-            solve: this.funcs.testfunc,
+            solve: this.funcs.ct[3],
           },
           4: {
             enbaled: false,
@@ -50,7 +50,7 @@ export class Relations {
               { name: 'S', perm: '' },
               { name: 'Sigma', perm: '' },
             ],
-            solve: this.funcs.testfunc,
+            solve: this.funcs.ct[4],
           },
           5: {
             enbaled: false,
@@ -59,7 +59,7 @@ export class Relations {
               { name: 'S', perm: '' },
               { name: 'Vdiv', perm: '' },
             ],
-            solve: this.funcs.testfunc,
+            solve: this.funcs.ct[5],
           },
         },
       },
