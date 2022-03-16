@@ -2,24 +2,32 @@ import { remoteSolvers } from './api-client.js';
 
 const ct = {
   1: {
-    normal: remoteSolvers('/test'),
-    mirror: remoteSolvers('/test'),
+    normal: async () => {
+      let inputs = {
+        var1: 10,
+        var2: 5,
+        var3: 14,
+      };
+      const result = await remoteSolvers('/ct/1', inputs);
+      return result;
+    },
+    mirror: () => {},
   },
   2: {
-    normal: remoteSolvers('/test'),
-    mirror: remoteSolvers('/test'),
+    normal: () => {},
+    mirror: () => {},
   },
   3: {
-    normal: remoteSolvers('/test'),
-    mirror: remoteSolvers('/test'),
+    normal: () => {},
+    mirror: () => {},
   },
   4: {
-    normal: remoteSolvers('/test'),
-    mirror: remoteSolvers('/test'),
+    normal: () => {},
+    mirror: () => {},
   },
   5: {
-    normal: remoteSolvers('/test'),
-    mirror: remoteSolvers('/test'),
+    normal: () => {},
+    mirror: () => {},
   },
 };
 
@@ -57,3 +65,10 @@ export const core = {
   Fn: {},
   Ft: {},
 };
+
+async function test() {
+  let response = await core.ct[1].normal();
+  console.log(response);
+}
+
+test();
