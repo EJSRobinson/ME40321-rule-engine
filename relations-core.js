@@ -11,7 +11,6 @@ export class Relations {
   constructor(funcs) {
     this.funcs = funcs;
     this.rules = {
-      //Tip Chord
       ct: {
         //Solve for Max
         type: 'symetric',

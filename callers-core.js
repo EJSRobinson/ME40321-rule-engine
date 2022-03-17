@@ -26,7 +26,7 @@ function buildMirrorInputs(props, vars) {
 const ct = {
   1: {
     normal: async (props, vars) => {
-      const result = await remoteSolvers('/ct/1', buildMirrorInputs(props, vars));
+      const result = await remoteSolvers('/ct/1', buildInputs(props, vars));
       props.set('ct', result);
       return result;
     },
