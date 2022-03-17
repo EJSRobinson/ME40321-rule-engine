@@ -3,10 +3,10 @@
 //IMPORT RELATIONS
 //IMPORT VARS
 import { Relations } from './relations-core.js';
-import { core as Solvers } from './solvers-core.js';
+import { core as Callers } from './callers-core.js';
 import { getAll } from 'me40321-database';
 
-let relations = new Relations(Solvers);
+let relations = new Relations(Callers);
 
 let propsMap = getAll();
 
