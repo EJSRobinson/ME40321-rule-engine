@@ -110,21 +110,36 @@ function checkDefinedMirror(vars) {
   return checkDefined(vars, true);
 }
 
-setInterval(async () => {
-  for (const [propName, prop] of Object.entries(relations.rules)) {
-    for (const [entryKey, entry] of Object.entries(prop.relations)) {
-      if (entry.enbaled) {
-        if (checkDefinedNormal(entry.vars)) {
-          await entry.solve.normal();
-        }
-        if (checkDefinedMirror(entry.vars)) {
-          await entry.solve.mirror();
+function startCheckLoop() {
+  setInterval(async () => {
+    for (const [propName, prop] of Object.entries(relations.rules)) {
+      for (const [entryKey, entry] of Object.entries(prop.relations)) {
+        if (entry.enbaled) {
+          if (checkDefinedNormal(entry.vars)) {
+            await entry.solve.normal(propsMap, entry.vars);
+          }
+          if (checkDefinedMirror(entry.vars)) {
+            await entry.solve.mirror(propsMap, entry.vars);
+          }
         }
       }
     }
-  }
-  // displayState();
-}, 1500);
+    // displayState();
+  }, 1500);
+}
+
+// startCheckLoop()
+
+async function test() {
+  let entry = relations.rules['ct'].relations['1'];
+  await entry.solve.normal(propsMap, entry.vars);
+  console.log(propsMap.get('ct'));
+}
+
+propsMap.set('cr', { value: { typeName: 'quant', max: 150, min: 145 } });
+propsMap.set('S', { value: { typeName: 'quant', max: 130, min: 125 } });
+propsMap.set('Afin', { value: { typeName: 'quant', max: 16250, min: 16000 } });
+test();
 
 // let counter = 0;
 // let sets = [

@@ -1,14 +1,33 @@
 import { remoteSolvers } from './api-client.js';
 
+function buildInputs(props, vars) {
+  let result = {};
+  for (const [varKey, varEntry] of Object.entries(vars)) {
+    result[varKey] = props.get(varKey).value[varEntry];
+  }
+  return result;
+}
+
+function buildMirrorInputs(props, vars) {
+  let result = {};
+  for (const [varKey, varEntry] of Object.entries(vars)) {
+    let entry = varEntry;
+    switch (varEntry) {
+      case 'max':
+        entry = 'min';
+      case 'min':
+        entry = 'max';
+    }
+    result[varKey] = props.get(varKey).value[entry];
+  }
+  return result;
+}
+
 const ct = {
   1: {
-    normal: async () => {
-      let inputs = {
-        var1: 10,
-        var2: 5,
-        var3: 14,
-      };
-      const result = await remoteSolvers('/ct/1', inputs);
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/ct/1', buildMirrorInputs(props, vars));
+      props.set('ct', result);
       return result;
     },
     mirror: () => {},
@@ -65,10 +84,3 @@ export const core = {
   Fn: {},
   Ft: {},
 };
-
-async function test() {
-  let response = await core.ct[1].normal();
-  console.log(response);
-}
-
-test();

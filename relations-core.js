@@ -18,11 +18,11 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: [
-              { name: 'cr', perm: 'min' },
-              { name: 'S', perm: 'min' },
-              { name: 'Afin', perm: 'max' },
-            ],
+            vars: {
+              cr: 'min',
+              S: 'min',
+              Afin: 'max',
+            },
             solve: this.funcs.ct[1],
           },
           2: {
