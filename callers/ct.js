@@ -1,0 +1,66 @@
+import { remoteSolvers } from '../api-client.js';
+import { buildInputs } from './common.js';
+import { buildMirrorInputs } from './common.js';
+
+export const ct = {
+  1: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/ct/1', buildInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/ct/1', buildMirrorInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+  },
+  2: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/ct/2', buildInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/ct/2', buildMirrorInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+  },
+  3: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/ct/3', buildInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/ct/3', buildMirrorInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+  },
+  4: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/ct/4', buildInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/ct/4', buildMirrorInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+  },
+  5: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/ct/5', buildInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/ct/5', buildMirrorInputs(props, vars));
+      props.set('ct', result);
+      return result;
+    },
+  },
+};
