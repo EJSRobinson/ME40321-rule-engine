@@ -8,36 +8,36 @@ export const ct = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/ct/1', buildInputs(props, vars));
-      updateMax(props, 'ct', result);
+      updateMax(props, 'ct', result.val);
       return result;
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/ct/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'ct', result);
+      updateMin(props, 'ct', result.val);
       return result;
     },
   },
   2: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/ct/2', buildInputs(props, vars));
-      updateMax(props, 'ct', result);
+      updateMax(props, 'ct', result.val);
       return result;
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/ct/2', buildMirrorInputs(props, vars));
-      updateMin(props, 'ct', result);
+      updateMin(props, 'ct', result.val);
       return result;
     },
   },
   3: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/ct/3', buildInputs(props, vars));
-      updateMax(props, 'ct', result);
+      updateMax(props, 'ct', result.val);
       return result;
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/ct/3', buildMirrorInputs(props, vars));
-      updateMin(props, 'ct', result);
+      updateMin(props, 'ct', result.val);
       return result;
     },
   },

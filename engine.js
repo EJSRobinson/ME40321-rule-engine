@@ -133,6 +133,7 @@ function startCheckLoop() {
 async function test() {
   let entry = relations.rules['ct'].relations['1'];
   await entry.solve.normal(propsMap, entry.vars);
+  await entry.solve.mirror(propsMap, entry.vars);
   console.log(propsMap.get('ct'));
 }
 

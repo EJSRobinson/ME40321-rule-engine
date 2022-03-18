@@ -23,7 +23,7 @@ export function buildMirrorInputs(props, vars) {
 
 export function updateMax(props, key, update) {
   let entry = props.get(key);
-  if (update > entry.value.max) {
+  if (update > entry.value.max || entry.value.max === null) {
     entry.value.max = update;
   }
   props.set(key, entry);
@@ -31,8 +31,8 @@ export function updateMax(props, key, update) {
 
 export function updateMin(props, key, update) {
   let entry = props.get(key);
-  if (update < entry.value.min) {
-    entry.value.max = update;
+  if (update < entry.value.min || entry.value.min === null) {
+    entry.value.min = update;
   }
   props.set(key, entry);
 }
