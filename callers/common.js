@@ -36,3 +36,9 @@ export function updateMin(props, key, update) {
   }
   props.set(key, entry);
 }
+
+export function updateVal(props, key, update) {
+  let entry = props.get(key);
+  entry.value.val = update;
+  props.set(key, entry);
+}
