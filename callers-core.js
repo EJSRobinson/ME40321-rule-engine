@@ -6,7 +6,7 @@ export const core = {
   ct: ct,
   cr: cr,
   S: S,
-  AR: {},
+  AR: AR,
   TR: {},
   Afin: {},
   Cna: {},

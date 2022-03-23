@@ -4,28 +4,28 @@ import { buildMirrorInputs } from './common.js';
 import { updateMax } from './common.js';
 import { updateMin } from './common.js';
 
-export const S = {
+export const AR = {
   1: {
     normal: async (props, vars) => {
-      const result = await remoteSolvers('/S/1', buildInputs(props, vars));
-      updateMax(props, 'S', result.val);
+      const result = await remoteSolvers('/AR/1', buildInputs(props, vars));
+      updateMax(props, 'AR', result.val);
       return result;
     },
     mirror: async (props, vars) => {
-      const result = await remoteSolvers('/S/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'S', result.val);
+      const result = await remoteSolvers('/AR/1', buildMirrorInputs(props, vars));
+      updateMin(props, 'AR', result.val);
       return result;
     },
   },
   2: {
     normal: async (props, vars) => {
-      const result = await remoteSolvers('/S/2', buildInputs(props, vars));
-      updateMax(props, 'S', result.val);
+      const result = await remoteSolvers('/AR/2', buildInputs(props, vars));
+      updateMax(props, 'AR', result.val);
       return result;
     },
     mirror: async (props, vars) => {
-      const result = await remoteSolvers('/S/2', buildMirrorInputs(props, vars));
-      updateMin(props, 'S', result.val);
+      const result = await remoteSolvers('/AR/2', buildMirrorInputs(props, vars));
+      updateMin(props, 'AR', result.val);
       return result;
     },
   },
