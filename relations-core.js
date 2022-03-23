@@ -151,12 +151,12 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { AR: 'min', LEsw: 'min', TEsw: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.TR[1],
           },
           3: {
             enbaled: true,
             vars: { ct: 'max', cr: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.TR[2],
           },
         },
       },
