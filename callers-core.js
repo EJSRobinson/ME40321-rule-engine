@@ -1,9 +1,11 @@
 import { ct } from './callers/ct.js';
+import { cr } from './callers/cr.js';
+import { S } from './callers/S.js';
 
 export const core = {
   ct: ct,
-  cr: {},
-  S: {},
+  cr: cr,
+  S: S,
   AR: {},
   TR: {},
   Afin: {},

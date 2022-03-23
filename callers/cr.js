@@ -44,24 +44,24 @@ export const cr = {
   4: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/cr/4', buildInputs(props, vars));
-      updateMax(props, 'cr', result);
+      updateMax(props, 'cr', result.val);
       return result;
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/cr/4', buildMirrorInputs(props, vars));
-      updateMin(props, 'cr', result);
+      updateMin(props, 'cr', result.val);
       return result;
     },
   },
   5: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/cr/5', buildInputs(props, vars));
-      updateMax(props, 'cr', result);
+      updateMax(props, 'cr', result.val);
       return result;
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/cr/5', buildMirrorInputs(props, vars));
-      updateMin(props, 'cr', result);
+      updateMin(props, 'cr', result.val);
       return result;
     },
   },
