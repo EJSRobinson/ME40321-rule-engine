@@ -137,10 +137,10 @@ async function test() {
   console.log(propsMap.get('ct'));
 }
 
-propsMap.set('cr', { value: { typeName: 'quant', max: 150, min: 145 } });
-propsMap.set('S', { value: { typeName: 'quant', max: 130, min: 125 } });
-propsMap.set('Afin', { value: { typeName: 'quant', max: 16250, min: 16000 } });
-test();
+// propsMap.set('cr', { value: { typeName: 'quant', max: 150, min: 145 } });
+// propsMap.set('S', { value: { typeName: 'quant', max: 130, min: 125 } });
+// propsMap.set('Afin', { value: { typeName: 'quant', max: 16250, min: 16000 } });
+// test();
 
 // let counter = 0;
 // let sets = [
