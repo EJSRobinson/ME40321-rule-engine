@@ -10,6 +10,8 @@ import { Cn } from './callers/Cn.js';
 import { Ct } from './callers/Ct_.js';
 import { Cl } from './callers/Cl.js';
 import { Cd } from './callers/Cd.js';
+import { Fl } from './callers/Fl.js';
+import { Fd } from './callers/Fd.js';
 
 export const core = {
   ct: ct,
@@ -24,8 +26,8 @@ export const core = {
   Ct: Ct,
   Cl: Cl,
   Cd: Cd,
-  Fl: {},
-  Fd: {},
+  Fl: Fl,
+  Fd: Fd,
   Sigma: {},
   t: {},
   v: {},
