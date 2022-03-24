@@ -1,10 +1,9 @@
 //Define Relations
 
 // PERMUTATION TYPES
-// max: Maximum
+// max: Maximum, if any values can used, max is written
 // min: Minimum
 // val: Value, for those without max or min e.g. material type
-// any: Use max or min
 
 export class Relations {
   funcs = {};
@@ -194,7 +193,7 @@ export class Relations {
               N: 'min',
               CnaComp: 'min',
               Xcomp: 'min',
-              Aref: 'any',
+              Aref: 'max',
             },
             solve: this.funcs.testfunc,
           },
@@ -205,7 +204,7 @@ export class Relations {
               cr: 'max',
               S: 'max',
               LEsw: 'min',
-              Aref: 'any',
+              Aref: 'max',
               N: 'max',
             },
             solve: this.funcs.testfunc,
@@ -273,7 +272,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { Cl: 'max', Aref: 'any', S: 'max', V: 'max' },
+            vars: { Cl: 'max', Aref: 'max', S: 'max', V: 'max' },
             solve: this.funcs.testfunc,
           },
         },
@@ -284,7 +283,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { Cd: 'max', Aref: 'any', S: 'max', V: 'max' },
+            vars: { Cd: 'max', Aref: 'max', S: 'max', V: 'max' },
             solve: this.funcs.testfunc,
           },
         },
@@ -416,7 +415,7 @@ export class Relations {
               Xfin: 'min',
               CnaComp: 'min',
               Xcomp: 'min',
-              Aref: 'any',
+              Aref: 'max',
             },
             solve: this.funcs.testfunc,
           },
@@ -477,7 +476,7 @@ export class Relations {
               Xcog: 'max',
               CnaComp: 'min',
               Xcomp: 'min',
-              Aref: 'any',
+              Aref: 'max',
             },
             solve: this.funcs.testfunc,
           },
@@ -496,7 +495,7 @@ export class Relations {
               CnaComp: 'max',
               Xcomp: 'max',
               Xcog: 'min',
-              Aref: 'any',
+              Aref: 'max',
             },
             solve: this.funcs.testfunc,
           },
@@ -593,7 +592,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { Cn: 'max', Aref: 'any', S: 'max', V: 'max' },
+            vars: { Cn: 'max', Aref: 'max', S: 'max', V: 'max' },
             solve: this.funcs.testfunc,
           },
         },
@@ -604,7 +603,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { Ct: 'max', Aref: 'any', S: 'max', V: 'max' },
+            vars: { Ct: 'max', Aref: 'max', S: 'max', V: 'max' },
             solve: this.funcs.testfunc,
           },
         },
