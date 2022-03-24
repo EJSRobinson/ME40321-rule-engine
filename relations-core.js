@@ -229,7 +229,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { AoA: 'max', Cna: 'max' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.Cn[1],
           },
         },
       },
@@ -240,7 +240,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { AoA: 'max', Cta: 'max' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.Ct[1],
           },
         },
       },
