@@ -8,6 +8,8 @@ import { Cna } from './callers/Cna.js';
 import { AoA } from './callers/AoA.js';
 import { Cn } from './callers/Cn.js';
 import { Ct } from './callers/Ct_.js';
+import { Cl } from './callers/Cl.js';
+import { Cd } from './callers/Cd.js';
 
 export const core = {
   ct: ct,
@@ -20,8 +22,8 @@ export const core = {
   AoA: AoA,
   Cn: Cn,
   Ct: Ct,
-  Cl: {},
-  Cd: {},
+  Cl: Cl,
+  Cd: Cd,
   Fl: {},
   Fd: {},
   Sigma: {},
