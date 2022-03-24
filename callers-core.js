@@ -5,6 +5,7 @@ import { AR } from './callers/AR.js';
 import { TR } from './callers/TR.js';
 import { Afin } from './callers/Afin.js';
 import { Cna } from './callers/Cna.js';
+import { AoA } from './callers/AoA.js';
 
 export const core = {
   ct: ct,
@@ -14,7 +15,7 @@ export const core = {
   TR: TR,
   Afin: Afin,
   Cna: Cna,
-  AoA: {},
+  AoA: AoA,
   Cn: {},
   Ct: {},
   Cl: {},

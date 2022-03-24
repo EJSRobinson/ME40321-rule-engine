@@ -195,7 +195,7 @@ export class Relations {
               Xcomp: 'min',
               Aref: 'max',
             },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.Cna[1],
           },
           2: {
             enbaled: true,
@@ -207,7 +207,7 @@ export class Relations {
               Aref: 'max',
               N: 'max',
             },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.Cna[2],
           },
         },
       },
@@ -218,7 +218,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { Cn: 'max', Cna: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.AoA[1],
           },
         },
       },
