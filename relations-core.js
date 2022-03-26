@@ -608,6 +608,17 @@ export class Relations {
           },
         },
       },
+      // Air density
+      RowA: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enbaled: true,
+            vars: { Alt: 'min', Ta: 'min' },
+            solve: this.funcs.testfunc,
+          },
+        },
+      },
     };
   }
 }
