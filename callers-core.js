@@ -13,6 +13,7 @@ import { Cd } from './callers/Cd.js';
 import { Fl } from './callers/Fl.js';
 import { Fd } from './callers/Fd.js';
 import { m } from './callers/m.js';
+import { mT } from './callers/mT.js';
 
 export const core = {
   ct: ct,
@@ -33,7 +34,7 @@ export const core = {
   t: {},
   v: {},
   m: m,
-  mT: {},
+  mT: mT,
   N: {},
   LEsw: {},
   TEsw: {},
