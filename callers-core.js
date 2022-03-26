@@ -12,6 +12,7 @@ import { Cl } from './callers/Cl.js';
 import { Cd } from './callers/Cd.js';
 import { Fl } from './callers/Fl.js';
 import { Fd } from './callers/Fd.js';
+import { m } from './callers/m.js';
 
 export const core = {
   ct: ct,
@@ -31,7 +32,7 @@ export const core = {
   Sigma: {},
   t: {},
   v: {},
-  m: {},
+  m: m,
   mT: {},
   N: {},
   LEsw: {},
