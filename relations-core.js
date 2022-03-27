@@ -394,7 +394,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { m: 'max', N: 'max' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.mT[1],
           },
         },
       },
@@ -405,19 +405,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { m: 'min', mT: 'max' },
-            solve: this.funcs.testfunc,
-          },
-          2: {
-            enbaled: true,
-            vars: {
-              Kn: 'max',
-              Cna: 'min',
-              Xfin: 'min',
-              CnaComp: 'min',
-              Xcomp: 'min',
-              Aref: 'max',
-            },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.N[1],
           },
         },
       },
