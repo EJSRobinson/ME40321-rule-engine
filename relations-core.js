@@ -416,17 +416,17 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { cr: 'max', ct: 'min', TEsw: 'min', S: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.LEsw[1],
           },
           2: {
             enbaled: true,
             vars: { cr: 'max', TR: 'min', TEsw: 'min', S: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.LEsw[2],
           },
           3: {
             enbaled: true,
             vars: { ct: 'min', TR: 'min', TEsw: 'min', S: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.LEsw[3],
           },
         },
       },
@@ -437,17 +437,17 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { cr: 'max', ct: 'min', TEsw: 'min', S: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.TEsw[1],
           },
           2: {
             enbaled: true,
             vars: { cr: 'max', TR: 'min', TEsw: 'min', S: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.TEsw[2],
           },
           3: {
             enbaled: true,
             vars: { ct: 'min', TR: 'min', TEsw: 'min', S: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.TEsw[3],
           },
         },
       },

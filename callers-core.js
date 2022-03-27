@@ -15,6 +15,8 @@ import { Fd } from './callers/Fd.js';
 import { m } from './callers/m.js';
 import { mT } from './callers/mT.js';
 import { N } from './callers/N.js';
+import { LEsw } from './callers/LEsw.js';
+import { TEsw } from './callers/TEsw.js';
 
 export const core = {
   ct: ct,
@@ -37,8 +39,8 @@ export const core = {
   m: m,
   mT: mT,
   N: N,
-  LEsw: {},
-  TEsw: {},
+  LEsw: LEsw,
+  TEsw: TEsw,
   Xfin: {},
   Kn: {},
   M: {},
