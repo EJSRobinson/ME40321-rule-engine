@@ -19,6 +19,8 @@ import { LEsw } from './callers/LEsw.js';
 import { TEsw } from './callers/TEsw.js';
 import { M } from './callers/M.js';
 import { V } from './callers/V.js';
+import { Ft } from './callers/Ft.js';
+import { Fn } from './callers/Fn.js';
 
 export const core = {
   ct: ct,
@@ -51,6 +53,6 @@ export const core = {
   Wn: {},
   Zeta: {},
   Tp: {},
-  Fn: {},
-  Ft: {},
+  Fn: Fn,
+  Ft: Ft,
 };
