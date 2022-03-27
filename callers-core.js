@@ -17,6 +17,8 @@ import { mT } from './callers/mT.js';
 import { N } from './callers/N.js';
 import { LEsw } from './callers/LEsw.js';
 import { TEsw } from './callers/TEsw.js';
+import { M } from './callers/M.js';
+import { V } from './callers/V.js';
 
 export const core = {
   ct: ct,
@@ -43,8 +45,8 @@ export const core = {
   TEsw: TEsw,
   Xfin: {},
   Kn: {},
-  M: {},
-  V: {},
+  M: M,
+  V: V,
   C1: {},
   Wn: {},
   Zeta: {},

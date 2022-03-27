@@ -501,7 +501,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { V: 'max', Ta: 'min', Alt: 'max' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.M[1],
           },
         },
       },
@@ -512,7 +512,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { M: 'max', Ta: 'max', Alt: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.V[1],
           },
         },
       },
