@@ -22,6 +22,7 @@ import { V } from './callers/V.js';
 import { Ft } from './callers/Ft.js';
 import { Fn } from './callers/Fn.js';
 import { Kn } from './callers/Kn.js';
+import { Xfin } from './callers/Xfin.js';
 
 export const core = {
   ct: ct,
@@ -46,7 +47,7 @@ export const core = {
   N: N,
   LEsw: LEsw,
   TEsw: TEsw,
-  Xfin: {},
+  Xfin: Xfin,
   Kn: Kn,
   M: M,
   V: V,
