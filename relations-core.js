@@ -599,7 +599,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { Alt: 'min', Ta: 'min' },
+            vars: { Alt: 'min' },
             solve: this.funcs.RowA[1],
           },
         },
