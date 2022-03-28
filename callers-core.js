@@ -25,6 +25,7 @@ import { Kn } from './callers/Kn.js';
 import { Xfin } from './callers/Xfin.js';
 import { CnaTot } from './callers/CnaTot.js';
 import { CtaTot } from './callers/CtaTot.js';
+import { RowA } from './callers/RowA.js';
 
 export const core = {
   ct: ct,
@@ -59,7 +60,7 @@ export const core = {
   Tp: {},
   Fn: Fn,
   Ft: Ft,
-  RowA: {},
+  RowA: RowA,
   CnaTot: CnaTot,
   CtaTot: CtaTot,
 };
