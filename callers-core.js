@@ -23,6 +23,8 @@ import { Ft } from './callers/Ft.js';
 import { Fn } from './callers/Fn.js';
 import { Kn } from './callers/Kn.js';
 import { Xfin } from './callers/Xfin.js';
+import { CnaTot } from './callers/CnaTot.js';
+import { CtaTot } from './callers/CtaTot.js';
 
 export const core = {
   ct: ct,
@@ -57,4 +59,7 @@ export const core = {
   Tp: {},
   Fn: Fn,
   Ft: Ft,
+  RowA: {},
+  CnaTot: CnaTot,
+  CtaTot: CtaTot,
 };

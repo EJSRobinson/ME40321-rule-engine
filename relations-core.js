@@ -600,7 +600,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { Alt: 'min', Ta: 'min' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.RowA[1],
           },
         },
       },
@@ -610,7 +610,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { Cna: 'max', N: 'max' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.CnaTot[1],
           },
         },
       },
@@ -620,7 +620,7 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { Cta: 'max', N: 'max' },
-            solve: this.funcs.testfunc,
+            solve: this.funcs.CtaTot[1],
           },
         },
       },
