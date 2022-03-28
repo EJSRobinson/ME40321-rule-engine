@@ -190,7 +190,6 @@ export class Relations {
               Kn: 'max',
               Xfin: 'min',
               Xcog: 'max',
-              N: 'min',
               CnaComp: 'min',
               Xcomp: 'min',
               Aref: 'max',
@@ -205,7 +204,6 @@ export class Relations {
               S: 'max',
               LEsw: 'min',
               Aref: 'max',
-              N: 'max',
             },
             solve: this.funcs.Cna[2],
           },
@@ -459,8 +457,7 @@ export class Relations {
             enabled: true,
             vars: {
               Kn: 'max',
-              Cna: 'min',
-              N: 'min',
+              CnaTot: 'min',
               Xcog: 'max',
               CnaComp: 'min',
               Xcomp: 'min',
@@ -477,9 +474,8 @@ export class Relations {
           1: {
             enabled: true,
             vars: {
-              Cna: 'max',
+              CnaTot: 'max',
               Xfin: 'max',
-              N: 'max',
               CnaComp: 'max',
               Xcomp: 'max',
               Xcog: 'min',
@@ -522,7 +518,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: false,
-            vars: { Kn: '', V: '', Alt: '', Aref: '', Cna: '', CnaComp: '' },
+            vars: { Kn: '', V: '', Alt: '', Aref: '', CnaTot: '', CnaComp: '' },
             solve: this.funcs.testfunc,
           },
           2: {
@@ -603,6 +599,26 @@ export class Relations {
           1: {
             enbaled: true,
             vars: { Alt: 'min', Ta: 'min' },
+            solve: this.funcs.testfunc,
+          },
+        },
+      },
+      CnaTot: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enbaled: true,
+            vars: { Cna: 'max', N: 'max' },
+            solve: this.funcs.testfunc,
+          },
+        },
+      },
+      CtaTot: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enbaled: true,
+            vars: { Cta: 'max', N: 'max' },
             solve: this.funcs.testfunc,
           },
         },
