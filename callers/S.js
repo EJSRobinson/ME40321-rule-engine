@@ -29,4 +29,16 @@ export const S = {
       return result;
     },
   },
+  5: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/S/5', buildInputs(props, vars));
+      updateMax(props, 'S', result.val);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/S/5', buildMirrorInputs(props, vars));
+      updateMin(props, 'S', result.val);
+      return result;
+    },
+  },
 };

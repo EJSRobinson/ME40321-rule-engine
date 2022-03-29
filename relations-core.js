@@ -207,7 +207,7 @@ export class Relations {
             },
             solve: this.funcs.Afin[4],
           },
-          4: {
+          5: {
             enbaled: true,
             vars: {
               Cna: 'max',
