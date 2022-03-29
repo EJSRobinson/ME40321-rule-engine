@@ -208,6 +208,11 @@ export class Relations {
             },
             solve: this.funcs.Cna[2],
           },
+          3: {
+            enbaled: true,
+            vars: { Cn: 'max', AoA: 'min' },
+            solve: this.funcs.Cna[3],
+          },
         },
       },
       // Angle of Attack

@@ -29,4 +29,16 @@ export const Cna = {
       return result;
     },
   },
+  3: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/Cna/3', buildInputs(props, vars));
+      updateMax(props, 'Cna', result.val);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/Cna/3', buildMirrorInputs(props, vars));
+      updateMin(props, 'Cna', result.val);
+      return result;
+    },
+  },
 };
