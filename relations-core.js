@@ -229,7 +229,7 @@ export class Relations {
             vars: {
               Kn: 'max',
               Xfin: 'min',
-              Xcog: 'max',
+              XCog: 'max',
               CnaComp: 'min',
               Xcomp: 'min',
               Aref: 'max',
@@ -336,8 +336,8 @@ export class Relations {
       Sigma: {
         type: 'symetric',
         relations: {
-          enbaled: false,
           1: {
+            enbaled: false,
             vars: { cr: '', ct: '', S: '', Cn: '', t: '' },
             solve: this.funcs.testfunc,
           },
@@ -504,7 +504,7 @@ export class Relations {
             vars: {
               Kn: 'max',
               CnaTot: 'min',
-              Xcog: 'max',
+              XCog: 'max',
               CnaComp: 'min',
               Xcomp: 'min',
               Aref: 'max',
@@ -524,7 +524,7 @@ export class Relations {
               Xfin: 'max',
               CnaComp: 'max',
               Xcomp: 'max',
-              Xcog: 'min',
+              XCog: 'min',
               Aref: 'max',
             },
             solve: this.funcs.Kn[1],
@@ -670,6 +670,15 @@ export class Relations {
         },
       },
     };
+  }
+  addFiredFields() {
+    for (const [propName, entry] of Object.entries(this.rules)) {
+      for (const [relationKey, relation] of Object.entries(entry.relations)) {
+        console.log(`${propName}: ${relationKey}`);
+        relation.fired = false;
+        relation.mirrorFired = false;
+      }
+    }
   }
 }
 

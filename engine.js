@@ -97,16 +97,25 @@ function wait(pause) {
   });
 }
 
-function displayAll() {
+function displayAll(dps) {
+  const mult = 10 ** dps;
   let rows = [];
   for (const [key, prop] of propsMap.entries()) {
     switch (prop.value.typeName) {
       case 'quant':
-        rows.push([key, prop.value.max, prop.value.min]);
+        rows.push([
+          key,
+          Math.round(prop.value.max * mult) / mult,
+          Math.round(prop.value.min * mult) / mult,
+        ]);
         break;
       case 'list':
       case 'qual':
-        rows.push([key, prop.value.val, prop.value.val]);
+        rows.push([
+          key,
+          Math.round(prop.value.val * mult) / mult,
+          Math.round(prop.value.val * mult) / mult,
+        ]);
         break;
     }
   }
@@ -131,15 +140,15 @@ async function startCheckLoop(pace) {
         await wait(pace);
       }
     }
-    displayAll();
+    displayAll(4);
     console.log('***Pass End***');
-    await wait(5000);
+    await wait(3000);
   }
 }
 
 setAssumptions(propsMap);
 setTests(propsMap);
-startCheckLoop(100);
+startCheckLoop(10);
 
 // const testInput = { cr: 'min', TR: 'min' };
 // displayAll();

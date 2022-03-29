@@ -30,7 +30,8 @@ export function setAssumptions(props) {
     let prop = props.get(propName);
     for (const [limit, value] of Object.entries(limits)) {
       prop.value[limit] = value;
-      prop.hard = true;
+      prop.hard.max = true;
+      prop.hard.min = true;
     }
     props.set(propName, prop);
   }
