@@ -15,6 +15,13 @@ const assumptions = {
     min: 2,
     max: 2,
   },
+  RowA: {
+    max: 1.225,
+  },
+  Ta: {
+    max: 300,
+    min: 273,
+  },
 };
 
 export function setAssumptions(props) {
@@ -22,6 +29,7 @@ export function setAssumptions(props) {
     let prop = props.get(propName);
     for (const [limit, value] of Object.entries(limits)) {
       prop.value[limit] = value;
+      prop.hard = true;
     }
     props.set(propName, prop);
   }

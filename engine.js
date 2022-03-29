@@ -133,12 +133,13 @@ async function startCheckLoop(pace) {
     }
     displayAll();
     console.log('***Pass End***');
+    await wait(5000);
   }
 }
 
 setAssumptions(propsMap);
 setTests(propsMap);
-startCheckLoop(500);
+startCheckLoop(100);
 
 // const testInput = { cr: 'min', TR: 'min' };
 // displayAll();
