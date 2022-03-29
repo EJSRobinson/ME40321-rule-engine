@@ -201,7 +201,7 @@ export class Relations {
             vars: {
               Cna: 'max',
               TR: 'min',
-              AR: 'max',
+              AR: 'min',
               TEsw: 'min',
               Aref: 'max',
             },
@@ -212,7 +212,7 @@ export class Relations {
             vars: {
               Cna: 'max',
               TR: 'min',
-              AR: 'max',
+              AR: 'min',
               LEsw: 'min',
               Aref: 'max',
             },
