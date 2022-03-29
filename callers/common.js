@@ -13,8 +13,10 @@ export function buildMirrorInputs(props, vars) {
     switch (varEntry) {
       case 'max':
         entry = 'min';
+        break;
       case 'min':
         entry = 'max';
+        break;
     }
     result[varKey] = props.get(varKey).value[entry];
   }
