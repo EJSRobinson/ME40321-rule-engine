@@ -5,6 +5,7 @@
 import { Relations } from './relations-core.js';
 import { core as Callers } from './callers-core.js';
 import { getAll } from 'me40321-database';
+import { setAssumptions } from './assumptions-core.js';
 
 let relations = new Relations(Callers);
 
@@ -133,18 +134,12 @@ function startCheckLoop() {
         }
       }
     }
-    // displayState();
+    displayState();
   }, 1500);
 }
 
-// startCheckLoop()
-
-async function test() {
-  let entry = relations.rules['ct'].relations['1'];
-  await entry.solve.normal(propsMap, entry.vars);
-  await entry.solve.mirror(propsMap, entry.vars);
-  console.log(propsMap.get('ct'));
-}
+setAssumptions(propsMap);
+startCheckLoop();
 
 // propsMap.set('cr', { value: { typeName: 'quant', max: 150, min: 145 } });
 // propsMap.set('S', { value: { typeName: 'quant', max: 130, min: 125 } });

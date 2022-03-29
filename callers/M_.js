@@ -7,12 +7,12 @@ import { updateMin } from './common.js';
 export const M = {
   1: {
     normal: async (props, vars) => {
-      const result = await remoteSolvers('/M/1', buildInputs(props, vars));
+      const result = await remoteSolvers('/Mach/1', buildInputs(props, vars));
       updateMax(props, 'M', result.val);
       return result;
     },
     mirror: async (props, vars) => {
-      const result = await remoteSolvers('/M/1', buildMirrorInputs(props, vars));
+      const result = await remoteSolvers('/Mach/1', buildMirrorInputs(props, vars));
       updateMin(props, 'M', result.val);
       return result;
     },
