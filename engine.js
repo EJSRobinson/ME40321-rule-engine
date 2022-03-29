@@ -37,6 +37,7 @@ function checkQuant(variable, property, mirror) {
           result = false;
         }
       }
+      break;
     case 'min':
       if (!mirror) {
         if (property.value.min === null) {
@@ -47,10 +48,12 @@ function checkQuant(variable, property, mirror) {
           result = false;
         }
       }
+      break;
     case 'any':
       if (property.value.max === null && property.value.min === null) {
         result = false;
       }
+      break;
   }
 }
 
@@ -66,6 +69,7 @@ function checkRange(variable, property, mirror) {
           result = false;
         }
       }
+      break;
     case 'min':
       if (!mirror) {
         if (property.value.min.length >= 1) {
@@ -76,10 +80,12 @@ function checkRange(variable, property, mirror) {
           result = false;
         }
       }
+      break;
     case 'any':
       if (property.value.max.length >= 1 && property.value.min.length >= 1) {
         result = false;
       }
+      break;
   }
 }
 
@@ -90,13 +96,16 @@ function checkDefined(vars, mirror) {
     switch (property.value.typeName) {
       case 'quant':
         checkQuant(vars[i].perm, property, mirror);
+        break;
       case 'range':
         checkRange(vars[i].perm, property, mirror);
+        break;
       case 'qual':
       case 'list':
         if (property.value.val === null) {
           result = false;
         }
+        break;
     }
   }
   return result;
