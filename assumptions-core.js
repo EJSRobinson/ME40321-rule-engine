@@ -8,19 +8,20 @@ const assumptions = {
     max: 3,
   },
   TR: {
-    min: 2,
-    max: 2,
+    min: 0.5,
+    max: 0.5,
   },
   AR: {
     min: 2,
     max: 2,
   },
-  RowA: {
-    max: 1.225,
-  },
   Ta: {
     max: 300,
     min: 273,
+  },
+  TEsw: {
+    max: 0,
+    min: 0,
   },
 };
 

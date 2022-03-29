@@ -22,6 +22,7 @@ export function buildMirrorInputs(props, vars) {
 }
 
 export function updateMax(props, key, update) {
+  update = Math.round(update * 10000) / 10000;
   let entry = props.get(key);
   if (!entry.hard) {
     if (update > entry.value.max || entry.value.max === null) {
@@ -32,6 +33,7 @@ export function updateMax(props, key, update) {
   }
 }
 export function updateMin(props, key, update) {
+  update = Math.round(update * 10000) / 10000;
   let entry = props.get(key);
   if (!entry.hard) {
     if (update < entry.value.min || entry.value.min === null) {

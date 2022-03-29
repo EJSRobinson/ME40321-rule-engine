@@ -37,7 +37,7 @@ export class Relations {
             enbaled: true,
             vars: {
               cr: 'max',
-              TR: 'min',
+              TR: 'max',
             },
             solve: this.funcs.ct[3],
           },
