@@ -94,6 +94,15 @@ export class Relations {
             vars: { ct: '', S: '', Vdiv: '' },
             solve: this.funcs.cr[5],
           },
+          6: {
+            enbaled: true,
+            vars: {
+              Afin: 'max',
+              AR: 'min',
+              TR: 'min',
+            },
+            solve: this.funcs.cr[5],
+          },
         },
       },
       // Span
@@ -185,6 +194,7 @@ export class Relations {
               TR: 'min',
               AR: 'max',
               TEsw: 'min',
+              Aref: 'max',
             },
             solve: this.funcs.Afin[4],
           },
@@ -195,6 +205,7 @@ export class Relations {
               TR: 'min',
               AR: 'max',
               LEsw: 'min',
+              Aref: 'max',
             },
             solve: this.funcs.Afin[5],
           },

@@ -65,4 +65,16 @@ export const cr = {
       return result;
     },
   },
+  6: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/cr/6', buildInputs(props, vars));
+      updateMax(props, 'cr', result.val);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/cr/6', buildMirrorInputs(props, vars));
+      updateMin(props, 'cr', result.val);
+      return result;
+    },
+  },
 };
