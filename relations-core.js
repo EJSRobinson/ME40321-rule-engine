@@ -59,6 +59,15 @@ export class Relations {
             },
             solve: this.funcs.ct[5],
           },
+          6: {
+            enbaled: true,
+            vars: {
+              Afin: 'max',
+              AR: 'min',
+              TR: 'max',
+            },
+            solve: this.funcs.ct[6],
+          },
         },
       },
       //Root Chord
@@ -101,7 +110,7 @@ export class Relations {
               AR: 'min',
               TR: 'min',
             },
-            solve: this.funcs.cr[5],
+            solve: this.funcs.cr[6],
           },
         },
       },
