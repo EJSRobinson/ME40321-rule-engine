@@ -11,54 +11,8 @@ let relations = new Relations(Callers);
 
 let propsMap = getAll();
 
-// function displayState() {
-//   let pairs = [];
-//   let trueCount = 0;
-//   for (const [key, value] of propsMap.entries()) {
-//     if (checkDefined([key])) {
-//       trueCount += 1;
-//       pairs.push([key, true]);
-//     } else {
-//       pairs.push([key, false]);
-//     }
-//   }
-//   console.table(pairs);
-//   console.log(`${parseInt((trueCount / pairs.length) * 100)}% Defined`);
-// }
-
-function checkQuant(variable, property, mirror) {
-  switch (variable) {
-    case 'max':
-      if (!mirror) {
-        if (property.value.max === null) {
-          result = false;
-        }
-      } else {
-        if (property.value.min === null) {
-          result = false;
-        }
-      }
-      break;
-    case 'min':
-      if (!mirror) {
-        if (property.value.min === null) {
-          result = false;
-        }
-      } else {
-        if (property.value.max === null) {
-          result = false;
-        }
-      }
-      break;
-    case 'any':
-      if (property.value.max === null && property.value.min === null) {
-        result = false;
-      }
-      break;
-  }
-}
-
 function checkRange(variable, property, mirror) {
+  let result = true;
   switch (variable) {
     case 'max':
       if (!mirror) {
@@ -90,23 +44,37 @@ function checkRange(variable, property, mirror) {
   }
 }
 
+function checkQuant(limit, prop, mirror) {
+  if (mirror) {
+    if (limit === 'max') {
+      return !(prop.value['min'] === null);
+    } else {
+      return !(prop.value['max'] === null);
+    }
+  } else {
+    return !(prop.value[limit] === null);
+  }
+}
+
 function checkDefined(vars, mirror) {
   let result = true;
-  for (let i = 0; i < vars.length; i++) {
-    let property = propsMap.get(vars[i].name);
-    switch (property.value.typeName) {
-      case 'quant':
-        checkQuant(vars[i].perm, property, mirror);
-        break;
-      case 'range':
-        checkRange(vars[i].perm, property, mirror);
-        break;
-      case 'qual':
-      case 'list':
-        if (property.value.val === null) {
-          result = false;
-        }
-        break;
+  for (const [varName, limit] of Object.entries(vars)) {
+    if (result) {
+      let property = propsMap.get(varName);
+      switch (property.value.typeName) {
+        case 'quant':
+          result = checkQuant(limit, property, mirror);
+          break;
+        case 'range':
+          result = checkRange(limit, property, mirror);
+          break;
+        case 'qual':
+        case 'list':
+          if (property.value.val === null) {
+            result = false;
+            break;
+          }
+      }
     }
   }
   return result;
@@ -120,11 +88,38 @@ function checkDefinedMirror(vars) {
   return checkDefined(vars, true);
 }
 
-function startCheckLoop() {
-  setInterval(async () => {
+function wait(pause) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, pause);
+  });
+}
+
+function displayAll() {
+  let rows = [];
+  for (const [key, prop] of propsMap.entries()) {
+    switch (prop.value.typeName) {
+      case 'quant':
+        rows.push([key, prop.value.max, prop.value.min]);
+        break;
+      case 'list':
+      case 'qual':
+        rows.push([key, prop.value.val, prop.value.val]);
+        break;
+    }
+  }
+  console.table(rows);
+}
+
+async function startCheckLoop(pace) {
+  while (true) {
     for (const [propName, prop] of Object.entries(relations.rules)) {
       for (const [entryKey, entry] of Object.entries(prop.relations)) {
         if (entry.enbaled) {
+          console.log(`--> Checking ${propName}-${entryKey}`);
+          // console.log(entry.vars);
+          // displayAll();
           if (checkDefinedNormal(entry.vars)) {
             await entry.solve.normal(propsMap, entry.vars);
           }
@@ -132,47 +127,26 @@ function startCheckLoop() {
             await entry.solve.mirror(propsMap, entry.vars);
           }
         }
+        await wait(pace);
       }
     }
-    displayState();
-  }, 1500);
+    displayAll();
+    console.log('***Pass End***');
+  }
 }
 
 setAssumptions(propsMap);
-startCheckLoop();
+setTests(propsMap);
+startCheckLoop(500);
+
+// const testInput = { cr: 'min', TR: 'min' };
+// displayAll();
+// console.log(checkDefined(testInput, false));
 
 // propsMap.set('cr', { value: { typeName: 'quant', max: 150, min: 145 } });
 // propsMap.set('S', { value: { typeName: 'quant', max: 130, min: 125 } });
 // propsMap.set('Afin', { value: { typeName: 'quant', max: 16250, min: 16000 } });
 // test();
-
-// let counter = 0;
-// let sets = [
-//   'Aref',
-//   'ct',
-//   'cr',
-//   'S',
-//   'TEsw',
-//   'Kn',
-//   'M',
-//   'AoA',
-//   'XCog',
-//   't',
-//   'm',
-//   'Alt',
-//   'N',
-//   'CnaComp',
-//   'Xcomp',
-// ];
-// setInterval(() => {
-//   let prop = propsMap.get(sets[counter]);
-//   prop.value.max = 1;
-//   propsMap.set(sets[counter], prop);
-//   counter = counter + 1;
-//   if (counter === sets.length) {
-//     counter = 0;
-//   }
-// }, 3000);
 
 //Run through relations
 //For each, check if required variables are defined
