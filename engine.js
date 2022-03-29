@@ -6,6 +6,7 @@ import { Relations } from './relations-core.js';
 import { core as Callers } from './callers-core.js';
 import { getAll } from 'me40321-database';
 import { setAssumptions } from './assumptions-core.js';
+import { setTests } from './test-sets.js';
 
 let relations = new Relations(Callers);
 
