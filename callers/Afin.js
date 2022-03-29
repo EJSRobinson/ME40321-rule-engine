@@ -50,4 +50,28 @@ export const Afin = {
       return result;
     },
   },
+  4: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/Afin/4', buildInputs(props, vars));
+      updateMax(props, 'Afin', result.val);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/Afin/4', buildMirrorInputs(props, vars));
+      updateMin(props, 'Afin', result.val);
+      return result;
+    },
+  },
+  5: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/Afin/5', buildInputs(props, vars));
+      updateMax(props, 'Afin', result.val);
+      return result;
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/Afin/5', buildMirrorInputs(props, vars));
+      updateMin(props, 'Afin', result.val);
+      return result;
+    },
+  },
 };

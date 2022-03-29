@@ -178,6 +178,26 @@ export class Relations {
             vars: { m: 'max', t: 'min', Mat: 'val' },
             solve: this.funcs.Afin[3],
           },
+          4: {
+            enbaled: true,
+            vars: {
+              Cna: 'max',
+              TR: 'min',
+              AR: 'max',
+              TEsw: 'min',
+            },
+            solve: this.funcs.Afin[4],
+          },
+          4: {
+            enbaled: true,
+            vars: {
+              Cna: 'max',
+              TR: 'min',
+              AR: 'max',
+              LEsw: 'min',
+            },
+            solve: this.funcs.Afin[5],
+          },
         },
       },
       // Normal Lift Slope
