@@ -480,17 +480,17 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { cr: 'max', ct: 'min', TEsw: 'min', S: 'min' },
+            vars: { cr: 'max', ct: 'min', LEsw: 'min', S: 'min' },
             solve: this.funcs.TEsw[1],
           },
           2: {
             enbaled: true,
-            vars: { cr: 'max', TR: 'min', TEsw: 'min', S: 'min' },
+            vars: { cr: 'max', TR: 'min', LEsw: 'min', S: 'min' },
             solve: this.funcs.TEsw[2],
           },
           3: {
             enbaled: true,
-            vars: { ct: 'min', TR: 'min', TEsw: 'min', S: 'min' },
+            vars: { ct: 'min', TR: 'min', LEsw: 'min', S: 'min' },
             solve: this.funcs.TEsw[3],
           },
         },
