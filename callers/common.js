@@ -25,16 +25,35 @@ export function buildMirrorInputs(props, vars) {
 
 const alwaysHardProps = ['ct', 'cr', 'S'];
 
+function handleUpdateMax(props, entry, key, update) {
+  entry.value.max = update;
+  if (alwaysHardProps.includes(key)) {
+    entry.hard.max = true;
+  }
+  props.set(key, entry);
+  console.log(`---> Set ${key} max to ${update}`);
+}
+
+function handleUpdateMin(props, entry, key, update) {
+  entry.value.min = update;
+  if (alwaysHardProps.includes(key)) {
+    entry.hard.min = true;
+  }
+  props.set(key, entry);
+  console.log(`---> Set ${key} min to ${update}`);
+}
+
 export function updateMax(props, key, update) {
   let entry = props.get(key);
   if (!entry.hard.max) {
     if (update > entry.value.max || entry.value.max === null) {
-      entry.value.max = update;
-      if (alwaysHardProps.includes(key)) {
-        entry.hard.max = true;
+      if (entry.limits.hasOwnProperty('max')) {
+        if (update < entry.limits.max) {
+          handleUpdateMax(props, entry, key, update);
+        }
+      } else {
+        handleUpdateMax(props, entry, key, update);
       }
-      props.set(key, entry);
-      console.log(`---> Set ${key} max to ${update}`);
     }
   }
 }
@@ -42,12 +61,13 @@ export function updateMin(props, key, update) {
   let entry = props.get(key);
   if (!entry.hard.min) {
     if (update < entry.value.min || entry.value.min === null) {
-      entry.value.min = update;
-      if (alwaysHardProps.includes(key)) {
-        entry.hard.min = true;
+      if (entry.limits.hasOwnProperty('min')) {
+        if (update > entry.limits.min) {
+          handleUpdateMin(props, entry, key, update);
+        }
+      } else {
+        handleUpdateMin(props, entry, key, update);
       }
-      props.set(key, entry);
-      console.log(`---> Set ${key} min to ${update}`);
     }
   }
 }

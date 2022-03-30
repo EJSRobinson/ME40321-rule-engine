@@ -23,6 +23,9 @@ const assumptions = {
     max: 0,
     min: 0,
   },
+  RowA: {
+    max: 1.225,
+  },
 };
 
 export function setAssumptions(props) {
