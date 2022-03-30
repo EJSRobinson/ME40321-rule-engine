@@ -8,13 +8,11 @@ export const Fd = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Fd/1', buildInputs(props, vars));
-      updateMax(props, 'Fd', result.val);
-      return result;
+      return updateMax(props, 'Fd', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Fd/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'Fd', result.val);
-      return result;
+      return updateMin(props, 'Fd', result.val);
     },
   },
 };

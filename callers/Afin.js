@@ -9,25 +9,21 @@ export const Afin = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Afin/1', buildInputs(props, vars));
-      updateMax(props, 'Afin', result.val);
-      return result;
+      return updateMax(props, 'Afin', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Afin/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'Afin', result.val);
-      return result;
+      return updateMin(props, 'Afin', result.val);
     },
   },
   2: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Afin/2', buildInputs(props, vars));
-      updateMax(props, 'Afin', result.val);
-      return result;
+      return updateMax(props, 'Afin', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Afin/2', buildMirrorInputs(props, vars));
-      updateMin(props, 'Afin', result.val);
-      return result;
+      return updateMin(props, 'Afin', result.val);
     },
   },
   3: {
@@ -37,8 +33,7 @@ export const Afin = {
       let density = materials[inputs['Mat']].density;
       inputs['Mat'] = density;
       const result = await remoteSolvers('/Afin/3', inputs);
-      updateMax(props, 'Afin', result.val);
-      return result;
+      return updateMax(props, 'Afin', result.val);
     },
     mirror: async (props, vars) => {
       // Replace material with density
@@ -46,32 +41,27 @@ export const Afin = {
       let density = materials[inputs['Mat']].density;
       inputs['Mat'] = density;
       const result = await remoteSolvers('/Afin/3', buildMirrorInputs(props, inputs));
-      updateMin(props, 'Afin', result.val);
-      return result;
+      return updateMin(props, 'Afin', result.val);
     },
   },
   4: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Afin/4', buildInputs(props, vars));
-      updateMax(props, 'Afin', result.val);
-      return result;
+      return updateMax(props, 'Afin', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Afin/4', buildMirrorInputs(props, vars));
-      updateMin(props, 'Afin', result.val);
-      return result;
+      return updateMin(props, 'Afin', result.val);
     },
   },
   5: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Afin/5', buildInputs(props, vars));
-      updateMax(props, 'Afin', result.val);
-      return result;
+      return updateMax(props, 'Afin', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Afin/5', buildMirrorInputs(props, vars));
-      updateMin(props, 'Afin', result.val);
-      return result;
+      return updateMin(props, 'Afin', result.val);
     },
   },
 };

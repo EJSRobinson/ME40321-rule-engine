@@ -8,25 +8,21 @@ export const Kn = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Kn/1', buildInputs(props, vars));
-      updateMax(props, 'Kn', result.val);
-      return result;
+      return updateMax(props, 'Kn', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Kn/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'Kn', result.val);
-      return result;
+      return updateMin(props, 'Kn', result.val);
     },
   },
   2: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Kn/2', buildInputs(props, vars));
-      updateMax(props, 'Kn', result.val);
-      return result;
+      return updateMax(props, 'Kn', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Kn/2', buildMirrorInputs(props, vars));
-      updateMin(props, 'Kn', result.val);
-      return result;
+      return updateMin(props, 'Kn', result.val);
     },
   },
 };

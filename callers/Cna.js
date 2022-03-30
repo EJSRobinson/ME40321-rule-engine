@@ -8,37 +8,31 @@ export const Cna = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Cna/1', buildInputs(props, vars));
-      updateMax(props, 'Cna', result.val);
-      return result;
+      return updateMax(props, 'Cna', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Cna/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'Cna', result.val);
-      return result;
+      return updateMin(props, 'Cna', result.val);
     },
   },
   2: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Cna/2', buildInputs(props, vars));
-      updateMax(props, 'Cna', result.val);
-      return result;
+      return updateMax(props, 'Cna', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Cna/2', buildMirrorInputs(props, vars));
-      updateMin(props, 'Cna', result.val);
-      return result;
+      return updateMin(props, 'Cna', result.val);
     },
   },
   3: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Cna/3', buildInputs(props, vars));
-      updateMax(props, 'Cna', result.val);
-      return result;
+      return updateMax(props, 'Cna', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Cna/3', buildMirrorInputs(props, vars));
-      updateMin(props, 'Cna', result.val);
-      return result;
+      return updateMin(props, 'Cna', result.val);
     },
   },
 };

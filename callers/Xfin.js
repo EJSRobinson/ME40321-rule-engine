@@ -8,13 +8,11 @@ export const Xfin = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Xfin/1', buildInputs(props, vars));
-      updateMax(props, 'Xfin', result.val);
-      return result;
+      return updateMax(props, 'Xfin', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Xfin/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'Xfin', result.val);
-      return result;
+      return updateMin(props, 'Xfin', result.val);
     },
   },
 };

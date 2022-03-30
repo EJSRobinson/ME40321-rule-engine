@@ -6,13 +6,11 @@ import { updateMax } from './common.js';
 export const RowA = {
   1: {
     normal: async (props, vars) => {
-      updateMax(props, 'RowA', 1.225);
-      return;
+      return updateMax(props, 'RowA', 1.225);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/RowA/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'RowA', result.val);
-      return result;
+      return updateMin(props, 'RowA', result.val);
     },
   },
 };

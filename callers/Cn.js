@@ -8,13 +8,11 @@ export const Cn = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/Cn/1', buildInputs(props, vars));
-      updateMax(props, 'Cn', result.val);
-      return result;
+      return updateMax(props, 'Cn', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/Cn/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'Cn', result.val);
-      return result;
+      return updateMin(props, 'Cn', result.val);
     },
   },
 };

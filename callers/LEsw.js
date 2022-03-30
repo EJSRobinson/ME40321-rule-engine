@@ -8,37 +8,31 @@ export const LEsw = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/LEsw/1', buildInputs(props, vars));
-      updateMax(props, 'LEsw', result.val);
-      return result;
+      return updateMax(props, 'LEsw', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/LEsw/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'LEsw', result.val);
-      return result;
+      return updateMin(props, 'LEsw', result.val);
     },
   },
   2: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/LEsw/2', buildInputs(props, vars));
-      updateMax(props, 'LEsw', result.val);
-      return result;
+      return updateMax(props, 'LEsw', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/LEsw/2', buildMirrorInputs(props, vars));
-      updateMin(props, 'LEsw', result.val);
-      return result;
+      return updateMin(props, 'LEsw', result.val);
     },
   },
   3: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/LEsw/3', buildInputs(props, vars));
-      updateMax(props, 'LEsw', result.val);
-      return result;
+      return updateMax(props, 'LEsw', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/LEsw/3', buildMirrorInputs(props, vars));
-      updateMin(props, 'LEsw', result.val);
-      return result;
+      return updateMin(props, 'LEsw', result.val);
     },
   },
 };

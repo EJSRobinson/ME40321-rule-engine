@@ -8,13 +8,11 @@ export const m = {
   1: {
     normal: async (props, vars) => {
       const result = await remoteSolvers('/m/1', buildInputs(props, vars));
-      updateMax(props, 'm', result.val);
-      return result;
+      return updateMax(props, 'm', result.val);
     },
     mirror: async (props, vars) => {
       const result = await remoteSolvers('/m/1', buildMirrorInputs(props, vars));
-      updateMin(props, 'm', result.val);
-      return result;
+      return updateMin(props, 'm', result.val);
     },
   },
   2: {
@@ -23,16 +21,14 @@ export const m = {
       let density = materials[inputs['Mat']].density;
       inputs['Mat'] = density;
       const result = await remoteSolvers('/m/2', inputs);
-      updateMax(props, 'm', result.val);
-      return result;
+      return updateMax(props, 'm', result.val);
     },
     mirror: async (props, vars) => {
       let inputs = buildMirrorInputs(props, vars);
       let density = materials[inputs['Mat']].density;
       inputs['Mat'] = density;
       const result = await remoteSolvers('/m/2', inputs);
-      updateMin(props, 'm', result.val);
-      return result;
+      return updateMin(props, 'm', result.val);
     },
   },
 };
