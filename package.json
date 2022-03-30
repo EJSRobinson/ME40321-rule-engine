@@ -21,7 +21,7 @@
   "homepage": "https://github.com/EJSRobinson/ME40321-rule-engine#readme",
   "dependencies": {
     "https": "^1.0.0",
-    "me40321-database": "^0.0.13",
+    "me40321-database": "^0.0.14",
     "request": "^2.88.2"
   },
   "type": "module"

@@ -122,34 +122,47 @@ function displayAll(dps) {
   console.table(rows);
 }
 
-async function startCheckLoop(pace) {
-  let updates = 1;
-  while (updates > 0) {
-    for (const [propName, prop] of Object.entries(relations.rules)) {
-      for (const [entryKey, entry] of Object.entries(prop.relations)) {
-        if (entry.enbaled) {
-          console.log(`--> Checking ${propName}-${entryKey}`);
-          // console.log(entry.vars);
-          // displayAll();
-          if (checkDefinedNormal(entry.vars)) {
-            await entry.solve.normal(propsMap, entry.vars);
+function startCheckLoop(pace) {
+  return new Promise(async (resolve, reject) => {
+    let updates = 1;
+    while (updates > 0) {
+      updates = 0;
+      for (const [propName, prop] of Object.entries(relations.rules)) {
+        for (const [entryKey, entry] of Object.entries(prop.relations)) {
+          if (entry.enbaled) {
+            console.log(`--> Checking ${propName}-${entryKey}`);
+            if (checkDefinedNormal(entry.vars)) {
+              let result = await entry.solve.normal(propsMap, entry.vars);
+              if (result) {
+                updates += 1;
+              }
+            }
+            if (checkDefinedMirror(entry.vars)) {
+              let result = await entry.solve.mirror(propsMap, entry.vars);
+              if (result) {
+                updates += 1;
+              }
+            }
           }
-          if (checkDefinedMirror(entry.vars)) {
-            await entry.solve.mirror(propsMap, entry.vars);
-          }
+          await wait(pace);
         }
-        // await wait(pace);
       }
+      // displayAll(4);
+      console.log(`--*> Updates: ${updates}`);
+      console.log('***Pass End***');
+      // await wait(3000);
     }
-    // displayAll(4);
-    // console.log('***Pass End***');
-    // await wait(3000);
-  }
+    resolve();
+  });
 }
 
 setAssumptions(propsMap);
 setTests(propsMap);
-startCheckLoop(10);
+async function main() {
+  await startCheckLoop(0);
+  displayAll(4);
+}
+main();
 
 // const testInput = { cr: 'min', TR: 'min' };
 // displayAll();

@@ -23,22 +23,16 @@ export function buildMirrorInputs(props, vars) {
   return result;
 }
 
-const alwaysFixedProps = ['ct', 'cr', 'S'];
-
 function handleUpdateMax(props, entry, key, update) {
   entry.value.max = update;
-  if (alwaysFixedProps.includes(key)) {
-    entry.fixed.max = true;
-  }
+  entry.fixed.max = true;
   props.set(key, entry);
   console.log(`---> Set ${key} max to ${update}`);
 }
 
 function handleUpdateMin(props, entry, key, update) {
   entry.value.min = update;
-  if (alwaysFixedProps.includes(key)) {
-    entry.fixed.min = true;
-  }
+  entry.fixed.min = true;
   props.set(key, entry);
   console.log(`---> Set ${key} min to ${update}`);
 }
