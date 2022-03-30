@@ -123,7 +123,8 @@ function displayAll(dps) {
 }
 
 async function startCheckLoop(pace) {
-  while (true) {
+  let updates = 1;
+  while (updates > 0) {
     for (const [propName, prop] of Object.entries(relations.rules)) {
       for (const [entryKey, entry] of Object.entries(prop.relations)) {
         if (entry.enbaled) {
@@ -137,12 +138,12 @@ async function startCheckLoop(pace) {
             await entry.solve.mirror(propsMap, entry.vars);
           }
         }
-        await wait(pace);
+        // await wait(pace);
       }
     }
-    displayAll(4);
-    console.log('***Pass End***');
-    await wait(3000);
+    // displayAll(4);
+    // console.log('***Pass End***');
+    // await wait(3000);
   }
 }
 
