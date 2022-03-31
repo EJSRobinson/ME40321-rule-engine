@@ -3,6 +3,7 @@ import { buildInputs } from './common.js';
 import { buildMirrorInputs } from './common.js';
 import { updateMax } from './common.js';
 import { updateMin } from './common.js';
+import { materials } from 'me40321-database/materials-core.js';
 
 export const m = {
   1: {

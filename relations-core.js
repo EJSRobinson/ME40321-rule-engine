@@ -283,7 +283,24 @@ export class Relations {
         relations: {
           1: {
             enbaled: true,
-            vars: { AoA: 'max', Cta: 'max' },
+            vars: {
+              Aref: 'max',
+              Ta: 'min', // Check
+              Alt: 'min',
+              M: 'max',
+              Afin: 'max',
+              t: 'max',
+              Cbar: 'max',
+              S: 'max',
+              LEsw: 'min',
+              TEsw: 'min',
+              Msw: 'min',
+              cr: 'max',
+              AoA: 'max',
+              Mat: 'val',
+              Arf: 'val',
+              Cn: 'max',
+            },
             solve: this.funcs.Ct[1],
           },
         },
