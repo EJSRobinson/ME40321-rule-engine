@@ -40,7 +40,7 @@ export const Afin = {
       let inputs = buildMirrorInputs(props, vars);
       let density = materials[inputs['Mat']].density;
       inputs['Mat'] = density;
-      const result = await remoteSolvers('/Afin/3', buildMirrorInputs(props, inputs));
+      const result = await remoteSolvers('/Afin/3', inputs);
       return updateMin(props, 'Afin', result.val);
     },
   },

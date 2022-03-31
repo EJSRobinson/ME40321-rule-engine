@@ -111,11 +111,7 @@ function displayAll(dps) {
         break;
       case 'list':
       case 'qual':
-        rows.push([
-          key,
-          Math.round(prop.value.val * mult) / mult,
-          Math.round(prop.value.val * mult) / mult,
-        ]);
+        rows.push([key, prop.value.val, prop.value.val]);
         break;
     }
   }

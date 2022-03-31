@@ -27,6 +27,24 @@ const sets = {
     max: 0.0872,
     min: 0.0872,
   },
+  M: {
+    max: 0.8,
+    min: 0.7,
+  },
+  Arf: {
+    val: 'flatPlateF',
+  },
+  Mat: {
+    val: 'aluminium',
+  },
+  Alt: {
+    max: 3500,
+    min: 3000,
+  },
+  t: {
+    max: 0.003,
+    min: 0.003,
+  },
 };
 
 export function setTests(props) {

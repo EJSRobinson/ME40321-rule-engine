@@ -680,7 +680,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enbaled: true,
             vars: { cr: 'max', ct: 'max' },
             solve: this.funcs.Cbar[1],
           },
@@ -690,7 +690,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enbaled: true,
             vars: { cr: 'min', ct: 'max', S: 'max', LEsw: 'max' },
             solve: this.funcs.Msw[1],
           },
