@@ -659,6 +659,16 @@ export class Relations {
           },
         },
       },
+      Cbar: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enbaled: true,
+            vars: { LEsw: 'min', TEsw: 'min', S: 'max', Cr: 'max', Afin: 'max' },
+            solve: this.funcs.Cbar[1],
+          },
+        },
+      },
     };
   }
   addFiredFields() {
