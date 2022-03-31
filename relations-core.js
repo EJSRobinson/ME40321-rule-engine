@@ -669,6 +669,16 @@ export class Relations {
           },
         },
       },
+      Msw: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enbaled: false,
+            vars: {},
+            solve: this.funcs.Msw[1],
+          },
+        },
+      },
     };
   }
   addFiredFields() {
