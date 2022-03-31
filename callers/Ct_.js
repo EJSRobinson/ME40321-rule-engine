@@ -7,11 +7,11 @@ import { updateMin } from './common.js';
 export const Ct = {
   1: {
     normal: async (props, vars) => {
-      const result = await remoteSolvers('/Ctang_/1', buildInputs(props, vars));
+      const result = await remoteSolvers('/Ctang/1', buildInputs(props, vars));
       return updateMax(props, 'Ct', result.val);
     },
     mirror: async (props, vars) => {
-      const result = await remoteSolvers('/Ctang_/1', buildMirrorInputs(props, vars));
+      const result = await remoteSolvers('/Ctang/1', buildMirrorInputs(props, vars));
       return updateMin(props, 'Ct', result.val);
     },
   },

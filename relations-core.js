@@ -663,8 +663,8 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
-            vars: { LEsw: 'min', TEsw: 'min', S: 'max', Cr: 'max', Afin: 'max' },
+            enbaled: false,
+            vars: { cr: 'max', ct: 'max' },
             solve: this.funcs.Cbar[1],
           },
         },
@@ -674,7 +674,7 @@ export class Relations {
         relations: {
           1: {
             enbaled: false,
-            vars: {},
+            vars: { cr: 'min', ct: 'max', S: 'max', LEsw: 'max' },
             solve: this.funcs.Msw[1],
           },
         },
