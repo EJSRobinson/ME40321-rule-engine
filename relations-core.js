@@ -659,16 +659,6 @@ export class Relations {
           },
         },
       },
-      CtaTot: {
-        type: 'symetric',
-        relations: {
-          1: {
-            enbaled: true,
-            vars: { Cta: 'max', N: 'max' },
-            solve: this.funcs.CtaTot[1],
-          },
-        },
-      },
     };
   }
   addFiredFields() {

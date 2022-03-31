@@ -42,14 +42,15 @@ export function updateMax(props, key, update) {
   let entry = props.get(key);
   if (!entry.fixed.max) {
     if (update > entry.value.max || entry.value.max === null) {
+      updateMade = true;
       if (entry.limits.hasOwnProperty('max')) {
         if (update < entry.limits.max) {
           handleUpdateMax(props, entry, key, update);
-          updateMade = true;
+        } else {
+          handleUpdateMax(props, entry, key, entry.limits.max);
         }
       } else {
         handleUpdateMax(props, entry, key, update);
-        updateMade = true;
       }
     }
   }
@@ -60,14 +61,15 @@ export function updateMin(props, key, update) {
   let entry = props.get(key);
   if (!entry.fixed.min) {
     if (update < entry.value.min || entry.value.min === null) {
+      updateMade = true;
       if (entry.limits.hasOwnProperty('min')) {
         if (update > entry.limits.min) {
           handleUpdateMin(props, entry, key, update);
-          updateMade = true;
+        } else {
+          handleUpdateMin(props, entry, key, entry.limits.min);
         }
       } else {
         handleUpdateMin(props, entry, key, update);
-        updateMade = true;
       }
     }
   }
