@@ -7,10 +7,12 @@ import { core as Callers } from './callers-core.js';
 import { getAll } from 'me40321-database';
 import { setAssumptions } from './assumptions-core.js';
 import { setTests } from './test-sets.js';
-
+import { materials } from 'me40321-database/materials-core.js';
+import { remoteSolvers } from './api-client.js';
 let relations = new Relations(Callers);
 
 let propsMap = getAll();
+let finals = getAll();
 
 function checkRange(variable, property, mirror) {
   let result = true;
@@ -57,11 +59,11 @@ function checkQuant(limit, prop, mirror) {
   }
 }
 
-function checkDefined(vars, mirror) {
+function checkDefined(targetMap, vars, mirror) {
   let result = true;
   for (const [varName, limit] of Object.entries(vars)) {
     if (result) {
-      let property = propsMap.get(varName);
+      let property = targetMap.get(varName);
       switch (property.value.typeName) {
         case 'quant':
           result = checkQuant(limit, property, mirror);
@@ -81,12 +83,12 @@ function checkDefined(vars, mirror) {
   return result;
 }
 
-function checkDefinedNormal(vars) {
-  return checkDefined(vars, false);
+function checkDefinedNormal(targetMap, vars) {
+  return checkDefined(targetMap, vars, false);
 }
 
-function checkDefinedMirror(vars) {
-  return checkDefined(vars, true);
+function checkDefinedMirror(targetMap, vars) {
+  return checkDefined(targetMap, vars, true);
 }
 
 function wait(pause) {
@@ -97,10 +99,10 @@ function wait(pause) {
   });
 }
 
-function displayAll(dps) {
+function displayAll(target, dps) {
   const mult = 10 ** dps;
   let rows = [];
-  for (const [key, prop] of propsMap.entries()) {
+  for (const [key, prop] of target.entries()) {
     switch (prop.value.typeName) {
       case 'quant':
         rows.push([
@@ -118,61 +120,116 @@ function displayAll(dps) {
   console.table(rows);
 }
 
-function startCheckLoop(pace) {
+function correctMinMaxErrors(targetMap) {
+  return new Promise(async (resolve, reject) => {
+    for (let [name, prop] of targetMap.entries()) {
+      if (prop.value.typeName === 'quant' || prop.value.typeName === 'range') {
+        const oldMax = JSON.parse(JSON.stringify(prop.value.max));
+        if (oldMax < prop.value.min) {
+          prop.value.max = JSON.parse(JSON.stringify(prop.value.min));
+          prop.value.min = oldMax;
+        }
+      }
+      targetMap.set(name, prop);
+    }
+    resolve();
+  });
+}
+
+function calculateEnvelope(targetMap) {
   return new Promise(async (resolve, reject) => {
     let updates = 1;
     while (updates > 0) {
       updates = 0;
       for (const [propName, prop] of Object.entries(relations.rules)) {
         for (const [entryKey, entry] of Object.entries(prop.relations)) {
-          if (entry.enbaled) {
+          if (entry.enabled) {
             console.log(`--> Checking ${propName}-${entryKey}`);
-            if (checkDefinedNormal(entry.vars)) {
-              let result = await entry.solve.normal(propsMap, entry.vars);
+            if (checkDefinedNormal(targetMap, entry.vars)) {
+              let result = await entry.solve.normal(targetMap, entry.vars);
               if (result) {
                 updates += 1;
               }
             }
-            if (checkDefinedMirror(entry.vars)) {
-              let result = await entry.solve.mirror(propsMap, entry.vars);
+            if (checkDefinedMirror(targetMap, entry.vars)) {
+              let result = await entry.solve.mirror(targetMap, entry.vars);
               if (result) {
                 updates += 1;
               }
             }
           }
-          await wait(pace);
+          await wait();
         }
       }
-      // displayAll(4);
       console.log(`--*> Updates: ${updates}`);
       console.log('***Pass End***');
-      // await wait(3000);
     }
     resolve();
   });
 }
 
-setAssumptions(propsMap);
-setTests(propsMap);
+function optimiseForDrag(targetMap) {
+  return new Promise(async (resolve, reject) => {
+    let inputs = {
+      t: targetMap.get('t').value.max,
+      Aref: targetMap.get('Aref').value.max,
+      Ta: targetMap.get('Ta').value.max,
+      Alt: targetMap.get('Alt').value.max,
+      M: targetMap.get('M').value.max,
+      AoA: targetMap.get('AoA').value.max,
+      Mat: targetMap.get('Mat').value.val,
+      Arf: targetMap.get('Arf').value.val,
+      Cn: targetMap.get('Cn').value.max,
+      S: {
+        min: targetMap.get('S').value.min,
+        max: targetMap.get('S').value.max,
+      },
+      cr: {
+        min: targetMap.get('cr').value.min,
+        max: targetMap.get('cr').value.max,
+      },
+      ct: {
+        min: targetMap.get('ct').value.min,
+        max: targetMap.get('ct').value.max,
+      },
+      TEsw: {
+        min: targetMap.get('TEsw').value.min,
+        max: targetMap.get('TEsw').value.max,
+      },
+    };
+    let Rs = materials[inputs['Mat']].surfaceRoughness;
+    inputs['Mat'] = Rs;
+    let result = await remoteSolvers('/optimiseDrag', inputs);
+    resolve(result);
+  });
+}
+
+function setFinalDimensions(targetMap, dimensions) {
+  return new Promise(async (resolve, reject) => {
+    for (const [propName, value] of Object.entries(dimensions)) {
+      let prop = targetMap.get(propName);
+      prop.value.max = value;
+      prop.value.min = value;
+      prop.fixed.max = true;
+      prop.fixed.min = true;
+      targetMap.set(propName, prop);
+    }
+    resolve();
+  });
+}
+
 async function main() {
-  await startCheckLoop(0);
-  displayAll(4);
+  await setAssumptions(propsMap);
+  await setTests(propsMap);
+  await calculateEnvelope(propsMap);
+  await correctMinMaxErrors(propsMap);
+  displayAll(propsMap, 4);
+  let dimensions = await optimiseForDrag(propsMap);
+  await setAssumptions(finals);
+  // await setTests(finals);
+  await setFinalDimensions(finals, dimensions);
+  // displayAll(finals, 4);
+  await calculateEnvelope(finals);
+  displayAll(finals, 4);
 }
 main();
-
-// const testInput = { cr: 'min', TR: 'min' };
-// displayAll();
-// console.log(checkDefined(testInput, false));
-
-// propsMap.set('cr', { value: { typeName: 'quant', max: 150, min: 145 } });
-// propsMap.set('S', { value: { typeName: 'quant', max: 130, min: 125 } });
-// propsMap.set('Afin', { value: { typeName: 'quant', max: 16250, min: 16000 } });
-// test();
-
-//Run through relations
-//For each, check if required variables are defined
-//Run Solvers where possible
-//Run checks
-//Respond to checks
-//Loop until all solved
-//Run Optimisation (if needed)

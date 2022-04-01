@@ -15,7 +15,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: {
               cr: 'min',
               S: 'min',
@@ -24,7 +24,7 @@ export class Relations {
             solve: this.funcs.ct[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: {
               cr: 'max',
               S: 'min',
@@ -34,7 +34,7 @@ export class Relations {
             solve: this.funcs.ct[2],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: {
               cr: 'max',
               TR: 'max',
@@ -42,7 +42,7 @@ export class Relations {
             solve: this.funcs.ct[3],
           },
           4: {
-            enbaled: false,
+            enabled: false,
             vars: {
               cr: '',
               S: '',
@@ -51,7 +51,7 @@ export class Relations {
             solve: this.funcs.ct[4],
           },
           5: {
-            enbaled: false,
+            enabled: false,
             vars: {
               cr: '',
               S: '',
@@ -60,7 +60,7 @@ export class Relations {
             solve: this.funcs.ct[5],
           },
           6: {
-            enbaled: true,
+            enabled: true,
             vars: {
               Afin: 'max',
               AR: 'min',
@@ -75,7 +75,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: {
               ct: 'min',
               S: 'min',
@@ -84,27 +84,27 @@ export class Relations {
             solve: this.funcs.cr[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'max', S: 'max', TEsw: 'max', LEsw: 'max' },
             solve: this.funcs.cr[2],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'max', TR: 'min' },
             solve: this.funcs.cr[3],
           },
           4: {
-            enbaled: false,
+            enabled: false,
             vars: { ct: '', S: '', Sigma: '' },
             solve: this.funcs.cr[4],
           },
           5: {
-            enbaled: false,
+            enabled: false,
             vars: { ct: '', S: '', Vdiv: '' },
             solve: this.funcs.cr[5],
           },
           6: {
-            enbaled: true,
+            enabled: true,
             vars: {
               Afin: 'max',
               AR: 'min',
@@ -119,27 +119,27 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'min', cr: 'min', Afin: 'max' },
             solve: this.funcs.S[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'min', cr: 'max', LEsw: 'min', TEsw: 'min' },
             solve: this.funcs.S[2],
           },
           3: {
-            enbaled: false,
+            enabled: false,
             vars: { cr: '', ct: '', Sigma: '' },
             solve: this.funcs.S[3],
           },
           4: {
-            enbaled: false,
+            enabled: false,
             vars: { ct: '', cr: '', Vdiv: '' },
             solve: this.funcs.S[4],
           },
           5: {
-            enbaled: true,
+            enabled: true,
             vars: { AR: 'max', Afin: 'max' },
             solve: this.funcs.S[5],
           },
@@ -150,12 +150,12 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { S: 'max', Afin: 'min' },
             solve: this.funcs.AR[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { TR: 'min', LEsw: 'min', TEsw: 'min' },
             solve: this.funcs.AR[2],
           },
@@ -166,12 +166,12 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { AR: 'min', LEsw: 'min', TEsw: 'min' },
             solve: this.funcs.TR[1],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'max', cr: 'min' },
             solve: this.funcs.TR[2],
           },
@@ -182,22 +182,22 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'max', cr: 'max', S: 'max' },
             solve: this.funcs.Afin[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { AR: 'min', S: 'max' },
             solve: this.funcs.Afin[2],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: { m: 'max', t: 'min', Mat: 'val' },
             solve: this.funcs.Afin[3],
           },
           4: {
-            enbaled: true,
+            enabled: true,
             vars: {
               Cna: 'max',
               TR: 'min',
@@ -208,7 +208,7 @@ export class Relations {
             solve: this.funcs.Afin[4],
           },
           5: {
-            enbaled: true,
+            enabled: true,
             vars: {
               Cna: 'max',
               TR: 'min',
@@ -225,7 +225,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: {
               Kn: 'max',
               Xfin: 'min',
@@ -238,7 +238,7 @@ export class Relations {
             solve: this.funcs.Cna[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: {
               ct: 'max',
               cr: 'max',
@@ -249,7 +249,7 @@ export class Relations {
             solve: this.funcs.Cna[2],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: { Cn: 'max', AoA: 'min' },
             solve: this.funcs.Cna[3],
           },
@@ -260,7 +260,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cn: 'max', Cna: 'min' },
             solve: this.funcs.AoA[1],
           },
@@ -271,7 +271,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { AoA: 'max', Cna: 'max' },
             solve: this.funcs.Cn[1],
           },
@@ -282,7 +282,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: {
               Aref: 'max',
               Ta: 'min', // Check
@@ -310,7 +310,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cn: 'max', Ct: 'max', AoA: 'max' },
             solve: this.funcs.Cl[1],
           },
@@ -321,7 +321,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cn: 'max', Ct: 'max', AoA: 'max' },
             solve: this.funcs.Cd[1],
           },
@@ -332,7 +332,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cl: 'max', Aref: 'max', V: 'max', RowA: 'max' },
             solve: this.funcs.Fl[1],
           },
@@ -343,7 +343,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cd: 'max', Aref: 'max', V: 'max', RowA: 'max' },
             solve: this.funcs.Fd[1],
           },
@@ -354,27 +354,27 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: { cr: '', ct: '', S: '', Cn: '', t: '' },
             solve: this.funcs.testfunc,
           },
           2: {
-            enbaled: false,
+            enabled: false,
             vars: { cr: '', ct: '', LEsw: '', Cn: '', t: '' },
             solve: this.funcs.testfunc,
           },
           3: {
-            enbaled: false,
+            enabled: false,
             vars: { cr: '', ct: '', TWsw: '', Cn: '', t: '' },
             solve: this.funcs.testfunc,
           },
           4: {
-            enbaled: false,
+            enabled: false,
             vars: { cr: '', TWsw: '', LEsw: '', Cn: '', t: '' },
             solve: this.funcs.testfunc,
           },
           5: {
-            enbaled: false,
+            enabled: false,
             vars: { ct: '', TWsw: '', LEsw: '', Cn: '', t: '' },
             solve: this.funcs.testfunc,
           },
@@ -385,22 +385,22 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: { ct: '', cr: '', LEsw: '', S: '', Cn: '', Sigma: '' },
             solve: this.funcs.testfunc,
           },
           2: {
-            enbaled: false,
+            enabled: false,
             vars: { ct: '', cr: '', TWsw: '', S: '', Cn: '', Sigma: '' },
             solve: this.funcs.testfunc,
           },
           3: {
-            enbaled: false,
+            enabled: false,
             vars: { LEsw: '', cr: '', TWsw: '', S: '', Cn: '', Sigma: '' },
             solve: this.funcs.testfunc,
           },
           4: {
-            enbaled: false,
+            enabled: false,
             vars: { LEsw: '', ct: '', TWsw: '', S: '', Cn: '', Sigma: '' },
             solve: this.funcs.testfunc,
           },
@@ -411,22 +411,22 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: { Sigma: '', t: '', cr: '', ct: '', LEsw: '', S: '' },
             solve: this.funcs.testfunc,
           },
           2: {
-            enbaled: false,
+            enabled: false,
             vars: { Sigma: '', t: '', cr: '', ct: '', TWsw: '', S: '' },
             solve: this.funcs.testfunc,
           },
           3: {
-            enbaled: false,
+            enabled: false,
             vars: { Sigma: '', t: '', cr: '', LEsw: '', TWsw: '', S: '' },
             solve: this.funcs.testfunc,
           },
           4: {
-            enbaled: false,
+            enabled: false,
             vars: { Sigma: '', t: '', ct: '', LEsw: '', TEsw: '', S: '' },
             solve: this.funcs.testfunc,
           },
@@ -437,12 +437,12 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { mT: 'max', N: 'min' },
             solve: this.funcs.m[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { Afin: 'max', t: 'max', Mat: 'val' },
             solve: this.funcs.m[2],
           },
@@ -453,7 +453,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { m: 'max', N: 'max' },
             solve: this.funcs.mT[1],
           },
@@ -464,7 +464,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { m: 'min', mT: 'max' },
             solve: this.funcs.N[1],
           },
@@ -475,17 +475,17 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { cr: 'max', ct: 'min', TEsw: 'min', S: 'min' },
             solve: this.funcs.LEsw[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { cr: 'max', TR: 'min', TEsw: 'min', S: 'min' },
             solve: this.funcs.LEsw[2],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'min', TR: 'min', TEsw: 'min', S: 'min' },
             solve: this.funcs.LEsw[3],
           },
@@ -496,17 +496,17 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { cr: 'max', ct: 'min', LEsw: 'min', S: 'min' },
             solve: this.funcs.TEsw[1],
           },
           2: {
-            enbaled: true,
+            enabled: true,
             vars: { cr: 'max', TR: 'min', LEsw: 'min', S: 'min' },
             solve: this.funcs.TEsw[2],
           },
           3: {
-            enbaled: true,
+            enabled: true,
             vars: { ct: 'min', TR: 'min', LEsw: 'min', S: 'min' },
             solve: this.funcs.TEsw[3],
           },
@@ -547,7 +547,7 @@ export class Relations {
             solve: this.funcs.Kn[1],
           },
           2: {
-            enbaled: false,
+            enabled: false,
             vars: { C1: '', V: '', Alt: '', Aref: '', Cna: '', CnaComp: '' },
             solve: this.funcs.Kn[2],
           },
@@ -558,7 +558,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { V: 'max', Ta: 'min', Alt: 'max' },
             solve: this.funcs.M[1],
           },
@@ -569,7 +569,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { M: 'max', Ta: 'max', Alt: 'min' },
             solve: this.funcs.V[1],
           },
@@ -580,12 +580,12 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: { Kn: '', V: '', Alt: '', Aref: '', CnaTot: '', CnaComp: '' },
             solve: this.funcs.testfunc,
           },
           2: {
-            enbaled: false,
+            enabled: false,
             vars: { Wn: '', I: '' },
             solve: this.funcs.testfunc,
           },
@@ -596,12 +596,12 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: { C1: '', I: '' },
             solve: this.funcs.testfunc,
           },
           2: {
-            enbaled: false,
+            enabled: false,
             vars: {
               Tp: '',
             },
@@ -614,7 +614,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: { C2a: '', C2p: '', C1: '', I: '' },
             solve: this.funcs.testfunc,
           },
@@ -625,7 +625,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: false,
+            enabled: false,
             vars: {
               Wn: 'max',
             },
@@ -638,7 +638,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cn: 'max', Aref: 'max', V: 'max', RowA: 'max' },
             solve: this.funcs.Fn[1],
           },
@@ -649,7 +649,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Ct: 'max', Aref: 'max', V: 'max', RowA: 'max' },
             solve: this.funcs.Ft[1],
           },
@@ -660,7 +660,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Alt: 'min' },
             solve: this.funcs.RowA[1],
           },
@@ -670,7 +670,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { Cna: 'max', N: 'max' },
             solve: this.funcs.CnaTot[1],
           },
@@ -680,7 +680,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { cr: 'max', ct: 'max' },
             solve: this.funcs.Cbar[1],
           },
@@ -690,7 +690,7 @@ export class Relations {
         type: 'symetric',
         relations: {
           1: {
-            enbaled: true,
+            enabled: true,
             vars: { cr: 'min', ct: 'max', S: 'max', LEsw: 'max' },
             solve: this.funcs.Msw[1],
           },

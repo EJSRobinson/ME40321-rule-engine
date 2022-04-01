@@ -1,9 +1,5 @@
 import * as https from 'http';
 
-let data = JSON.stringify({
-  Hello: 1,
-});
-
 export function remoteSolvers(path, vars) {
   let body = JSON.stringify(vars);
   let options = {
