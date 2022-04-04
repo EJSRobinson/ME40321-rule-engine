@@ -27,20 +27,20 @@ const assumptions = {
     max: 1.225,
   },
   XCog: {
-    max: 1,
-    min: 0.9,
+    max: 1.2,
+    min: 1.2,
   },
   CnaComp: {
-    max: 0.3,
-    min: 0.3,
+    max: 0.01,
+    min: 0.01,
   },
   Xcomp: {
-    max: 0.95,
-    min: 0.95,
+    max: 1,
+    min: 1,
   },
   Xfin: {
-    max: 1.6,
-    min: 1.4,
+    max: 1.3,
+    min: 1.3,
   },
   Aref: {
     max: 0.0177,
@@ -76,8 +76,12 @@ export function setAssumptions(props) {
       let prop = props.get(propName);
       for (const [limit, value] of Object.entries(limits)) {
         prop.value[limit] = value;
-        prop.fixed.max = true;
-        prop.fixed.min = true;
+        if (limit === 'max') {
+          prop.fixed.max = true;
+        }
+        if (limit === 'min') {
+          prop.fixed.min = true;
+        }
       }
       props.set(propName, prop);
     }

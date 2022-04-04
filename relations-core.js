@@ -227,12 +227,12 @@ export class Relations {
           1: {
             enabled: true,
             vars: {
-              Kn: 'max',
-              Xfin: 'min',
-              XCog: 'max',
-              CnaComp: 'min',
-              Xcomp: 'min',
-              Aref: 'max',
+              Kn: 'min',
+              Xfin: 'max',
+              XCog: 'min',
+              CnaComp: 'max',
+              Xcomp: 'max',
+              Aref: 'min',
               N: 'min',
             },
             solve: this.funcs.Cna[1],

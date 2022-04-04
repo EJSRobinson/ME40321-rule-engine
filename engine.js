@@ -228,7 +228,6 @@ async function main() {
   await setAssumptions(finals);
   // await setTests(finals);
   await setFinalDimensions(finals, dimensions);
-  // displayAll(finals, 4);
   await calculateEnvelope(finals);
   displayAll(finals, 4);
 }

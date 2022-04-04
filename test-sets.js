@@ -1,6 +1,6 @@
 const sets = {
   Kn: {
-    max: 5,
+    max: 2.5,
     min: 1.5,
   },
 };
