@@ -9,12 +9,15 @@ import { setAssumptions } from './assumptions-core.js';
 import { setTests } from './test-sets.js';
 import { materials } from 'me40321-database/materials-core.js';
 import { remoteSolvers } from './api-client.js';
-export class engine {
+export class Engine {
   constructor() {
     this.relations = new Relations(Callers);
+    this.context = {};
     this.propsMap = getAll();
     this.finals = getAll();
-    main();
+    this.dimensionSets = [];
+    this.activeConstrains = [];
+    this.finalDimensions = {}
   }
 
   checkRange(variable, property, mirror) {
@@ -171,7 +174,7 @@ export class engine {
     });
   }
 
-  optimiseForDrag(targetMap) {
+  optimiseForDrag(targetMap, finalEnv) {
     return new Promise(async (resolve, reject) => {
       let inputs = {
         t: targetMap.get('t').value.max,
@@ -184,20 +187,20 @@ export class engine {
         Arf: targetMap.get('Arf').value.val,
         Cn: targetMap.get('Cn').value.max,
         S: {
-          min: targetMap.get('S').value.min,
-          max: targetMap.get('S').value.max,
+          min: finalEnv.S.max,
+          max: finalEnv.S.min,
         },
         cr: {
-          min: targetMap.get('cr').value.min,
-          max: targetMap.get('cr').value.max,
+          min: finalEnv.cr.max,
+          max: finalEnv.cr.min,
         },
         ct: {
-          min: targetMap.get('ct').value.min,
-          max: targetMap.get('ct').value.max,
+          min: finalEnv.ct.max,
+          max: finalEnv.ct.min,
         },
         TEsw: {
-          min: targetMap.get('TEsw').value.min,
-          max: targetMap.get('TEsw').value.max,
+          min: finalEnv.TEsw.max,
+          max: finalEnv.TEsw.min,
         },
       };
       let Rs = materials[inputs['Mat']].surfaceRoughness;
@@ -221,15 +224,144 @@ export class engine {
     });
   }
 
-  async main() {
+  reset() {
+    this.propsMap = getAll();
+    this.finals = getAll();
     await setAssumptions(this.propsMap);
-    await setTests(this.propsMap);
+    await this.setContext(this.propsMap);
+  }
+
+  setContext(targetMap) {
+    return new Promise(async (resolve, reject) => {
+      for (const [propName, limits] of Object.entries(this.context)) {
+        let prop = targetMap.get(propName);
+        for (const [limit, value] of Object.entries(limits)) {
+          prop.value[limit] = value;
+          if (limit === 'max') {
+            prop.fixed.max = true;
+          }
+          if (limit === 'min') {
+            prop.fixed.min = true;
+          }
+        }
+        targetMap.set(propName, prop);
+      }
+      resolve();
+    });
+  }
+
+  setContraints(targetMap) {
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < this.activeConstrains.length; i++) {
+        let prop = targetMap.get(this.activeConstrains[i].propKey);
+        switch (prop.value.typeName) {
+          case 'quant':
+          case 'range':
+            prop.value.max = this.activeConstrains[i].value.max
+            prop.value.min = this.activeConstrains[i].value.min
+            break;
+          case 'list':
+          case 'qual':
+            prop.value.val = this.activeConstrains[i].value.val
+            break;
+        }
+        targetMap.set(this.activeConstrains[i].propKey, prop)
+      }
+      resolve();
+    });
+  }
+
+  addContext(propKey, value) {
+    this.context[propKey] = value;
+  }
+
+  addConstraint(propKey, value) {
+    this.activeConstrains.push({
+      propKey: propKey,
+      value: value,
+    });
+    this.main()
+  }
+
+  reset() {
+    this.propsMap = getAll();
+    this.finals = getAll();
+    await setAssumptions(this.propsMap);
+    await this.setContext(this.propsMap);
+  }
+
+  getFinals() {
+    return this.finals;
+  }
+
+  async finishRound(limit) {
+    this.dimensionSets.push({
+      limit: limit,
+      valueSet: {
+        S: this.propsMap.get('S').value[limit],
+        cr: this.propsMap.get('cr').value[limit],
+        ct: this.propsMap.get('ct').value[limit],
+        TEsw: this.propsMap.get('TEsw').value[limit],
+      }
+    });
+    this.activeConstrains.pop();
+    this.propsMap = await getAll();
+    await setAssumptions(this.propsMap);
+    await this.setContext(this.propsMap);
+  }
+
+  async main() {
+    await this.setContraints(this.propsMap);
     await this.calculateEnvelope(this.propsMap);
     await this.correctMinMaxErrors(this.propsMap);
-    this.displayAll(this.propsMap, 4);
-    let dimensions = await this.optimiseForDrag(this.propsMap);
+    // this.displayAll(this.propsMap, 4);
+    let dimensionsVars = ['S', 'cr', 'ct', 'TEsw'];
+    if (this.checkDefinedNormal(propsMap, dimensionsVars)) {
+      this.finishRound('max');
+    }
+    if (this.checkDefinedMirror(propsMap, dimensionsVars)) {
+      this.finishRound('min');
+    }
+  }
+
+  async finaliseEnvelope() {
+    return new Promise(async (resolve, reject) => {
+      let finalEnv = {
+        S: {
+          max: 0,
+          min: 0,
+        },
+        cr: {
+          max: 0,
+          min: 0,
+        },
+        ct: {
+          max: 0,
+          min: 0,
+        },
+        TEsw: {
+          max: 0,
+          min: 0,
+        }
+      }
+      for (let i = 0; i < this.dimensionSets.length; i++) {
+        let currentSet = this.dimensionSets[i]
+        for (const [propName, propValue] of Object.entries(currentSet.valueSet)) {
+          if (propValue > finalEnv[propName][currentSet.limit]) {
+            finalEnv[propName][currentSet.limit] = propValue
+          }
+        }
+      }
+      resolve(finalEnv);
+    });
+  }
+
+  async finish() {
+    let finalEnv = finaliseEnvelope();
+    await this.calculateEnvelope(this.propsMap);
+    await this.correctMinMaxErrors(this.propsMap);
+    let dimensions = await this.optimiseForDrag(this.propsMap, finalEnv);
     await setAssumptions(this.finals);
-    // await setTests(finals);
     await this.setFinalDimensions(this.finals, dimensions);
     await this.calculateEnvelope(this.finals);
     this.displayAll(this.finals, 4);
