@@ -26,10 +26,17 @@ const assumptions = {
   RowA: {
     max: 1.225,
   },
+  Arf: {
+    val: 'flatPlateF',
+  },
+  Mat: {
+    val: 'aluminium',
+  },
   XCog: {
     max: 1.2,
     min: 1.2,
   },
+  //Context
   CnaComp: {
     max: 0.01,
     min: 0.01,
@@ -53,12 +60,6 @@ const assumptions = {
   M: {
     max: 0.8,
     min: 0.7,
-  },
-  Arf: {
-    val: 'flatPlateF',
-  },
-  Mat: {
-    val: 'aluminium',
   },
   Alt: {
     max: 3500,
