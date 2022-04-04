@@ -13,11 +13,15 @@ export class Engine {
   constructor() {
     this.relations = new Relations(Callers);
     this.context = {};
-    this.propsMap = getAll();
-    this.finals = getAll();
     this.dimensionSets = [];
     this.activeConstrains = [];
-    this.finalDimensions = {}
+    this.finalDimensions = {};
+    this.init();
+  }
+
+  async init() {
+    this.propsMap = await getAll();
+    this.finals = await getAll();
   }
 
   checkRange(variable, property, mirror) {
@@ -164,7 +168,6 @@ export class Engine {
                 }
               }
             }
-            await wait();
           }
         }
         console.log(`--*> Updates: ${updates}`);
@@ -224,9 +227,9 @@ export class Engine {
     });
   }
 
-  reset() {
-    this.propsMap = getAll();
-    this.finals = getAll();
+  async reset() {
+    this.propsMap = await getAll();
+    this.finals = await getAll();
     await setAssumptions(this.propsMap);
     await this.setContext(this.propsMap);
   }
@@ -250,22 +253,22 @@ export class Engine {
     });
   }
 
-  setContraints(targetMap) {
+  setConstraints(targetMap) {
     return new Promise(async (resolve, reject) => {
       for (let i = 0; i < this.activeConstrains.length; i++) {
         let prop = targetMap.get(this.activeConstrains[i].propKey);
         switch (prop.value.typeName) {
           case 'quant':
           case 'range':
-            prop.value.max = this.activeConstrains[i].value.max
-            prop.value.min = this.activeConstrains[i].value.min
+            prop.value.max = this.activeConstrains[i].value.max;
+            prop.value.min = this.activeConstrains[i].value.min;
             break;
           case 'list':
           case 'qual':
-            prop.value.val = this.activeConstrains[i].value.val
+            prop.value.val = this.activeConstrains[i].value.val;
             break;
         }
-        targetMap.set(this.activeConstrains[i].propKey, prop)
+        targetMap.set(this.activeConstrains[i].propKey, prop);
       }
       resolve();
     });
@@ -280,12 +283,12 @@ export class Engine {
       propKey: propKey,
       value: value,
     });
-    this.main()
+    this.main();
   }
 
-  reset() {
-    this.propsMap = getAll();
-    this.finals = getAll();
+  async reset() {
+    this.propsMap = await getAll();
+    this.finals = await getAll();
     await setAssumptions(this.propsMap);
     await this.setContext(this.propsMap);
   }
@@ -302,24 +305,30 @@ export class Engine {
         cr: this.propsMap.get('cr').value[limit],
         ct: this.propsMap.get('ct').value[limit],
         TEsw: this.propsMap.get('TEsw').value[limit],
-      }
+      },
     });
     this.activeConstrains.pop();
+    this.displayAll(this.propsMap, 4);
+    console.log(this.dimensionSets);
     this.propsMap = await getAll();
-    await setAssumptions(this.propsMap);
-    await this.setContext(this.propsMap);
   }
 
   async main() {
-    await this.setContraints(this.propsMap);
+    await setAssumptions(this.propsMap);
+    await this.setContext(this.propsMap);
+    await this.setConstraints(this.propsMap);
     await this.calculateEnvelope(this.propsMap);
     await this.correctMinMaxErrors(this.propsMap);
-    // this.displayAll(this.propsMap, 4);
-    let dimensionsVars = ['S', 'cr', 'ct', 'TEsw'];
-    if (this.checkDefinedNormal(propsMap, dimensionsVars)) {
+    let dimensionsVars = {
+      cr: 'max',
+      ct: 'max',
+      S: 'max',
+      TEsw: 'max',
+    };
+    if (this.checkDefinedNormal(this.propsMap, dimensionsVars)) {
       this.finishRound('max');
     }
-    if (this.checkDefinedMirror(propsMap, dimensionsVars)) {
+    if (this.checkDefinedMirror(this.propsMap, dimensionsVars)) {
       this.finishRound('min');
     }
   }
@@ -342,13 +351,13 @@ export class Engine {
         TEsw: {
           max: 0,
           min: 0,
-        }
-      }
+        },
+      };
       for (let i = 0; i < this.dimensionSets.length; i++) {
-        let currentSet = this.dimensionSets[i]
+        let currentSet = this.dimensionSets[i];
         for (const [propName, propValue] of Object.entries(currentSet.valueSet)) {
           if (propValue > finalEnv[propName][currentSet.limit]) {
-            finalEnv[propName][currentSet.limit] = propValue
+            finalEnv[propName][currentSet.limit] = propValue;
           }
         }
       }
@@ -365,5 +374,9 @@ export class Engine {
     await this.setFinalDimensions(this.finals, dimensions);
     await this.calculateEnvelope(this.finals);
     this.displayAll(this.finals, 4);
+  }
+
+  showMe() {
+    this.displayAll(this.propsMap, 4);
   }
 }
