@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/EJSRobinson/ME40321-rule-engine#readme",
   "dependencies": {
+    "fastify": "^3.28.0",
     "https": "^1.0.0",
     "me40321-database": "^0.0.22",
     "request": "^2.88.2"
