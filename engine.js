@@ -20,6 +20,7 @@ export default class Engine {
 
   async init() {
     this.propsMap = await getAll();
+    this.lastRoundResult = await getAll();
     this.finals = await getAll();
   }
 
@@ -185,28 +186,27 @@ export default class Engine {
         Alt: targetMap.get('Alt').value.max,
         M: targetMap.get('M').value.max,
         AoA: targetMap.get('AoA').value.max,
-        Mat: targetMap.get('Mat').value.val,
+        Mat: materials[targetMap.get('Mat').value.val].surfaceRoughness,
         Arf: targetMap.get('Arf').value.val,
         Cn: targetMap.get('Cn').value.max,
         S: {
-          min: finalEnv.S.max,
-          max: finalEnv.S.min,
+          min: finalEnv.S.min,
+          max: finalEnv.S.max,
         },
         cr: {
-          min: finalEnv.cr.max,
-          max: finalEnv.cr.min,
+          min: finalEnv.cr.min,
+          max: finalEnv.cr.max,
         },
         ct: {
-          min: finalEnv.ct.max,
-          max: finalEnv.ct.min,
+          min: finalEnv.ct.min,
+          max: finalEnv.ct.max,
         },
         TEsw: {
-          min: finalEnv.TEsw.max,
-          max: finalEnv.TEsw.min,
+          min: finalEnv.TEsw.min,
+          max: finalEnv.TEsw.max,
         },
       };
-      let Rs = materials[inputs['Mat']].surfaceRoughness;
-      inputs['Mat'] = Rs;
+      console.log(inputs);
       let result = await remoteSolvers('/optimiseDrag', inputs);
       resolve(result);
     });
@@ -310,6 +310,7 @@ export default class Engine {
     this.activeConstrains.pop();
     this.displayAll(this.propsMap, 4);
     console.log(this.dimensionSets);
+    this.lastRoundResult = new Map(this.propsMap);
     this.propsMap = await getAll();
   }
 
@@ -319,6 +320,7 @@ export default class Engine {
     await this.setConstraints(this.propsMap);
     await this.calculateEnvelope(this.propsMap);
     await this.correctMinMaxErrors(this.propsMap);
+    this.displayAll(this.finals, 4);
     let dimensionsVars = {
       cr: 'max',
       ct: 'max',
@@ -366,13 +368,17 @@ export default class Engine {
   }
 
   async finish() {
-    let finalEnv = await finaliseEnvelope();
-    await this.calculateEnvelope(this.propsMap);
-    await this.correctMinMaxErrors(this.propsMap);
-    let dimensions = await this.optimiseForDrag(this.propsMap, finalEnv);
-    await setAssumptions(this.finals);
-    await this.setFinalDimensions(this.finals, dimensions);
-    await this.calculateEnvelope(this.finals);
-    this.displayAll(this.finals, 4);
+    return new Promise(async (resolve, reject) => {
+      let finalEnv = await this.finaliseEnvelope();
+      await this.correctMinMaxErrors(this.lastRoundResult);
+      let dimensions = await this.optimiseForDrag(this.lastRoundResult, finalEnv);
+      await setAssumptions(this.finals);
+      await this.setContext(this.finals);
+      await this.setFinalDimensions(this.finals, dimensions);
+      await this.calculateEnvelope(this.finals);
+      await this.correctMinMaxErrors(this.finals);
+      this.displayAll(this.finals, 4);
+      resolve(this.finals);
+    });
   }
 }
