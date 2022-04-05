@@ -9,7 +9,7 @@ import { setAssumptions } from './assumptions-core.js';
 import { setTests } from './test-sets.js';
 import { materials } from 'me40321-database/materials-core.js';
 import { remoteSolvers } from './api-client.js';
-export class Engine {
+export default class Engine {
   constructor() {
     this.relations = new Relations(Callers);
     this.context = {};
@@ -374,5 +374,9 @@ export class Engine {
     await this.setFinalDimensions(this.finals, dimensions);
     await this.calculateEnvelope(this.finals);
     this.displayAll(this.finals, 4);
+  }
+
+  test() {
+    return 'Hello World';
   }
 }
