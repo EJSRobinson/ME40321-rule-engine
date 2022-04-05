@@ -366,7 +366,7 @@ export class Engine {
   }
 
   async finish() {
-    let finalEnv = finaliseEnvelope();
+    let finalEnv = await finaliseEnvelope();
     await this.calculateEnvelope(this.propsMap);
     await this.correctMinMaxErrors(this.propsMap);
     let dimensions = await this.optimiseForDrag(this.propsMap, finalEnv);
@@ -374,9 +374,5 @@ export class Engine {
     await this.setFinalDimensions(this.finals, dimensions);
     await this.calculateEnvelope(this.finals);
     this.displayAll(this.finals, 4);
-  }
-
-  showMe() {
-    this.displayAll(this.propsMap, 4);
   }
 }
