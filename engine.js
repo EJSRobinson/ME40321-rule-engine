@@ -177,6 +177,30 @@ export default class Engine {
     });
   }
 
+  checkReadyToFinish() {
+    return new Promise(async (resolve, reject) => {
+      let dimensionsVars = {
+        t: 'max',
+        Aref: 'max',
+        Ta: 'max',
+        Alt: 'max',
+        M: 'max',
+        AoA: 'max',
+        Mat: 'val',
+        Arf: 'val',
+        Cn: 'max',
+      };
+      if (
+        this.checkDefinedNormal(this.lastRoundResult, dimensionsVars) &&
+        this.dimensionSets.length > 0
+      ) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  }
+
   optimiseForDrag(targetMap, finalEnv) {
     return new Promise(async (resolve, reject) => {
       let inputs = {
@@ -206,7 +230,6 @@ export default class Engine {
           max: finalEnv.TEsw.max,
         },
       };
-      console.log(inputs);
       let result = await remoteSolvers('/optimiseDrag', inputs);
       resolve(result);
     });
@@ -293,7 +316,7 @@ export default class Engine {
 
   getCurrent() {
     return new Promise(async (resolve, reject) => {
-      resolve(this.propsMap);
+      resolve(this.lastRoundResult);
     });
   }
 
@@ -309,7 +332,6 @@ export default class Engine {
     });
     this.activeConstrains.pop();
     this.displayAll(this.propsMap, 4);
-    console.log(this.dimensionSets);
     this.lastRoundResult = new Map(this.propsMap);
     this.propsMap = await getAll();
   }
@@ -378,7 +400,7 @@ export default class Engine {
       await this.calculateEnvelope(this.finals);
       await this.correctMinMaxErrors(this.finals);
       this.displayAll(this.finals, 4);
-      resolve(this.finals);
+      resolve();
     });
   }
 }
