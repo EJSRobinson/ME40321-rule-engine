@@ -6,7 +6,6 @@ import { Relations } from './relations-core.js';
 import { core as Callers } from './callers-core.js';
 import { getAll } from 'me40321-database';
 import { setAssumptions } from './assumptions-core.js';
-import { setTests } from './test-sets.js';
 import { materials } from 'me40321-database/materials-core.js';
 import { remoteSolvers } from './api-client.js';
 export default class Engine {

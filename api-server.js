@@ -6,7 +6,7 @@ import Engine from './engine.js';
 class ApplicationApiServer {
   constructor() {
     this.fastify = Fastify({
-      logger: true,
+      logger: false,
     });
 
     this.engine = new Engine();
