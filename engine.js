@@ -286,15 +286,16 @@ export default class Engine {
     this.main();
   }
 
-  async reset() {
-    this.propsMap = await getAll();
-    this.finals = await getAll();
-    await setAssumptions(this.propsMap);
-    await this.setContext(this.propsMap);
+  getFinals() {
+    return new Promise(async (resolve, reject) => {
+      resolve(this.finals);
+    });
   }
 
-  getFinals() {
-    return this.finals;
+  getCurrent() {
+    return new Promise(async (resolve, reject) => {
+      resolve(this.propsMap);
+    });
   }
 
   async finishRound(limit) {
@@ -374,9 +375,5 @@ export default class Engine {
     await this.setFinalDimensions(this.finals, dimensions);
     await this.calculateEnvelope(this.finals);
     this.displayAll(this.finals, 4);
-  }
-
-  test() {
-    return 'Hello World';
   }
 }
