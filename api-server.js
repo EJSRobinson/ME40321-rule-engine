@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import uiCalls from './ui-calls.js';
+import cors from 'fastify-cors';
 
 class ApplicationApiServer {
   constructor() {
@@ -23,4 +24,4 @@ class ApplicationApiServer {
   }
 }
 
-const ApplicationApiServer = new ApplicationApiServer();
+const applicationApiServer = new ApplicationApiServer();
