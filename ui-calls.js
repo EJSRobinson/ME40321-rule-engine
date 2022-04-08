@@ -14,11 +14,10 @@ export default (fastify, opts, done) => {
     logLevel: 'info',
     handler: async (req, reply) => {
       await fastify.engine.finish();
-      let result = await fastify.engine.getFinals();
       return reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
-        .send(JSON.stringify(result, replacer));
+        .send({ status: 'Ok' });
     },
   });
 
@@ -26,7 +25,10 @@ export default (fastify, opts, done) => {
     logLevel: 'info',
     handler: async (req, reply) => {
       fastify.engine.addConstraint(req.body.propKey, req.body.value);
-      return reply.code(200).header('Content-Type', 'application/json; charset=utf-8').send('Ok');
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ status: 'Ok' });
     },
   });
 
@@ -34,7 +36,10 @@ export default (fastify, opts, done) => {
     logLevel: 'info',
     handler: async (req, reply) => {
       fastify.engine.addContext(req.body.propKey, req.body.value);
-      return reply.code(200).header('Content-Type', 'application/json; charset=utf-8').send('Ok');
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ status: 'Ok' });
     },
   });
 
@@ -42,7 +47,21 @@ export default (fastify, opts, done) => {
     logLevel: 'info',
     handler: async (req, reply) => {
       let result = await fastify.engine.getCurrent();
-      return reply.code(200).header('Content-Type', 'application/json; charset=utf-8').send(result);
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ data: JSON.stringify(result, replacer) });
+    },
+  });
+
+  fastify.post('/getFinals', {
+    logLevel: 'info',
+    handler: async (req, reply) => {
+      let result = await fastify.engine.getFinals();
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ data: JSON.stringify(result, replacer) });
     },
   });
 
@@ -50,7 +69,10 @@ export default (fastify, opts, done) => {
     logLevel: 'info',
     handler: async (req, reply) => {
       let result = await fastify.engine.checkReadyToFinish();
-      return reply.code(200).header('Content-Type', 'application/json; charset=utf-8').send(result);
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ data: JSON.stringify(result, replacer) });
     },
   });
   done();

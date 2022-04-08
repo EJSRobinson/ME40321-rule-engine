@@ -23,7 +23,7 @@
     "fastify": "^3.28.0",
     "fastify-cors": "^6.0.3",
     "https": "^1.0.0",
-    "me40321-database": "^0.0.22",
+    "me40321-database": "^0.0.30",
     "request": "^2.88.2"
   },
   "type": "module"
