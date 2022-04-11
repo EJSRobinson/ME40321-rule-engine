@@ -11,10 +11,16 @@ import { remoteSolvers } from './api-client.js';
 export default class Engine {
   constructor() {
     this.relations = new Relations(Callers);
-    this.context = {};
+    this.context = [];
     this.dimensionSets = [];
     this.activeConstrains = [];
+    this.roundConstraintController = {
+      upper: 0,
+      lower: 0,
+      looped: false,
+    };
     this.finalDimensions = {};
+    this.readyToFinishFlag = false;
     this.init();
   }
 
@@ -24,6 +30,66 @@ export default class Engine {
     this.finals = await getAll();
   }
 
+  // * DEBUG FUNCTIONS *
+  wait(pause) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, pause);
+    });
+  }
+
+  displayAll(target, dps) {
+    const mult = 10 ** dps;
+    let rows = [];
+    for (const [key, prop] of target.entries()) {
+      switch (prop.value.typeName) {
+        case 'quant':
+          rows.push([
+            key,
+            Math.round(prop.value.max * mult) / mult,
+            Math.round(prop.value.min * mult) / mult,
+          ]);
+          break;
+        case 'list':
+        case 'qual':
+          rows.push([key, prop.value.val, prop.value.val]);
+          break;
+      }
+    }
+    console.table(rows);
+  }
+
+  displayConstraints() {
+    let rows = [];
+    for (let i = 0; i < this.activeConstrains.length; i++) {
+      let markers = '';
+      if ((this.roundConstraintController.upper = i)) {
+        markers += '<-U';
+      }
+      if ((this.roundConstraintController.lower = i)) {
+        markers += '<-L';
+      }
+      rows.push([this.activeConstrains[i].propKey, markers]);
+    }
+    console.table(rows);
+  }
+
+  displayDimensionSets() {
+    let rows = [['LIM', 'S', 'cr', 'ct', 'TEsw']];
+    for (let i = 0; i < this.dimensionSets.length; i++) {
+      rows.push([
+        this.dimensionSets[i].limit,
+        this.dimensionSets[i].valueSet.S.toPrecision(4),
+        this.dimensionSets[i].valueSet.cr.toPrecision(4),
+        this.dimensionSets[i].valueSet.ct.toPrecision(4),
+        this.dimensionSets[i].valueSet.TEsw.toPrecision(4),
+      ]);
+    }
+    console.table(rows);
+  }
+
+  // * CHECKING IF DEFINED FUNCTIONS *
   checkRange(variable, property, mirror) {
     let result = true;
     switch (variable) {
@@ -101,34 +167,39 @@ export default class Engine {
     return this.checkDefined(targetMap, vars, true);
   }
 
-  wait(pause) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-      }, pause);
+  // * MAIN CALCULATOR *
+
+  calculateAll(targetMap) {
+    return new Promise(async (resolve, reject) => {
+      let updates = 1;
+      while (updates > 0) {
+        updates = 0;
+        for (const [propName, prop] of Object.entries(this.relations.rules)) {
+          for (const [entryKey, entry] of Object.entries(prop.relations)) {
+            if (entry.enabled) {
+              if (this.checkDefinedNormal(targetMap, entry.vars)) {
+                let result = await entry.solve.normal(targetMap, entry.vars);
+                if (result) {
+                  updates += 1;
+                }
+              }
+              if (this.checkDefinedMirror(targetMap, entry.vars)) {
+                let result = await entry.solve.mirror(targetMap, entry.vars);
+                if (result) {
+                  updates += 1;
+                }
+              }
+            }
+          }
+        }
+        console.log(`-> No. of Updates: ${updates}`);
+        console.log('---> Pass Ends');
+      }
+      resolve();
     });
   }
 
-  displayAll(target, dps) {
-    const mult = 10 ** dps;
-    let rows = [];
-    for (const [key, prop] of target.entries()) {
-      switch (prop.value.typeName) {
-        case 'quant':
-          rows.push([
-            key,
-            Math.round(prop.value.max * mult) / mult,
-            Math.round(prop.value.min * mult) / mult,
-          ]);
-          break;
-        case 'list':
-        case 'qual':
-          rows.push([key, prop.value.val, prop.value.val]);
-          break;
-      }
-    }
-    console.table(rows);
-  }
+  // * PROCESSING FUNCTIONS *
 
   correctMinMaxErrors(targetMap) {
     return new Promise(async (resolve, reject) => {
@@ -146,34 +217,176 @@ export default class Engine {
     });
   }
 
-  calculateEnvelope(targetMap) {
-    return new Promise(async (resolve, reject) => {
-      let updates = 1;
-      while (updates > 0) {
-        updates = 0;
-        for (const [propName, prop] of Object.entries(this.relations.rules)) {
-          for (const [entryKey, entry] of Object.entries(prop.relations)) {
-            if (entry.enabled) {
-              console.log(`--> Checking ${propName}-${entryKey}`);
-              if (this.checkDefinedNormal(targetMap, entry.vars)) {
-                let result = await entry.solve.normal(targetMap, entry.vars);
-                if (result) {
-                  updates += 1;
-                }
-              }
-              if (this.checkDefinedMirror(targetMap, entry.vars)) {
-                let result = await entry.solve.mirror(targetMap, entry.vars);
-                if (result) {
-                  updates += 1;
-                }
-              }
+  filterUnpopulatedProps(targetMap) {
+    return new Promise((resolve, reject) => {
+      let result = new Map();
+      for (let [propName, prop] of targetMap) {
+        switch (prop.value.typeName) {
+          case 'quant':
+          case 'range':
+            if (prop.value.max !== null || prop.value.min !== null) {
+              result.set(propName, prop);
             }
-          }
+            break;
+          case 'list':
+          case 'qual':
+            if (prop.value.val !== null) {
+              result.set(propName, prop);
+            }
+            break;
         }
-        console.log(`--*> Updates: ${updates}`);
-        console.log('***Pass End***');
+      }
+      resolve(result);
+    });
+  }
+
+  // * SET ACTIVE CONSTRAINTS / SET CONTEXT *
+
+  setContext(targetMap) {
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < this.context.length; i++) {
+        let cont = this.context[i];
+        let prop = targetMap.get(cont.propKey);
+        for (const [limit, value] of Object.entries(cont.value)) {
+          prop.value[limit] = value;
+          prop.fixed[limit] = true;
+        }
+        targetMap.set(cont.propKey, prop);
       }
       resolve();
+    });
+  }
+
+  setRoundConstraints(targetMap) {
+    return new Promise(async (resolve, reject) => {
+      for (
+        let i = this.roundConstraintController.lower;
+        i <= this.roundConstraintController.upper;
+        i++
+      ) {
+        let prop = targetMap.get(this.activeConstrains[i].propKey);
+        switch (prop.value.typeName) {
+          case 'quant':
+          case 'range':
+            prop.value.max = this.activeConstrains[i].value.max;
+            prop.value.min = this.activeConstrains[i].value.min;
+            break;
+          case 'list':
+          case 'qual':
+            prop.value.val = this.activeConstrains[i].value.val;
+            break;
+        }
+        targetMap.set(this.activeConstrains[i].propKey, prop);
+      }
+      resolve();
+    });
+  }
+
+  // * ROUND CONTROL *
+
+  async startRound() {
+    console.log('* Starting Round *');
+    this.displayConstraints();
+    await setAssumptions(this.propsMap);
+    await this.setContext(this.propsMap);
+    await this.setRoundConstraints(this.propsMap);
+    await this.calculateAll(this.propsMap);
+    await this.correctMinMaxErrors(this.propsMap);
+    this.displayAll(this.propsMap, 4);
+    let dimensionsVars = {
+      cr: 'max',
+      ct: 'max',
+      S: 'max',
+      TEsw: 'max',
+    };
+    if (this.checkDefinedNormal(this.propsMap, dimensionsVars)) {
+      this.roundConstraintController.lower = this.roundConstraintController.upper;
+      this.finishRound();
+    } else {
+      this.roundConstraintController.upper += 1;
+      if (this.roundConstraintController.upper >= this.activeConstrains.lengths) {
+        this.roundConstraintController.upper = 0;
+        this.roundConstraintController.looped = true;
+      }
+      this.finishRound();
+    }
+  }
+
+  async finishRound() {
+    this.dimensionSets.push({
+      limit: 'max',
+      valueSet: {
+        S: this.propsMap.get('S').value.max,
+        cr: this.propsMap.get('cr').value.max,
+        ct: this.propsMap.get('ct').value.max,
+        TEsw: this.propsMap.get('TEsw').value.max,
+      },
+    });
+    this.dimensionSets.push({
+      limit: 'min',
+      valueSet: {
+        S: this.propsMap.get('S').value.min,
+        cr: this.propsMap.get('cr').value.min,
+        ct: this.propsMap.get('ct').value.min,
+        TEsw: this.propsMap.get('TEsw').value.min,
+      },
+    });
+    console.log('* Finished Round *');
+    this.lastRoundResult = new Map(this.propsMap);
+    this.propsMap = await getAll();
+    if (this.roundConstraintController.lower === this.activeConstrains.length - 1) {
+      this.finishSet();
+    } else {
+      this.startRound();
+    }
+  }
+
+  // * SET CONTROL *
+
+  startSet() {
+    console.log('*-*-* Starting Set *-*-*');
+    this.startRound();
+  }
+
+  async finishSet() {
+    this.displayDimensionSets();
+    this.roundConstraintController.lower = 0;
+    this.roundConstraintController.upper = 0;
+    this.readyToFinishFlag = await this.checkReadyToFinish();
+    console.log('*-*-* Finished Set *-*-*');
+  }
+
+  // * FINISH FUNCTION *
+
+  async finaliseEnvelope() {
+    return new Promise(async (resolve, reject) => {
+      let finalEnv = {
+        S: {
+          max: 0,
+          min: 0,
+        },
+        cr: {
+          max: 0,
+          min: 0,
+        },
+        ct: {
+          max: 0,
+          min: 0,
+        },
+        TEsw: {
+          max: 0,
+          min: 0,
+        },
+      };
+      for (let i = 0; i < this.dimensionSets.length; i++) {
+        let currentSet = this.dimensionSets[i];
+        for (const [propName, propValue] of Object.entries(currentSet.valueSet)) {
+          if (propValue > finalEnv[propName][currentSet.limit]) {
+            finalEnv[propName][currentSet.limit] = propValue;
+          }
+        }
+      }
+      resolve(finalEnv);
     });
   }
 
@@ -249,158 +462,73 @@ export default class Engine {
     });
   }
 
-  async reset() {
-    this.propsMap = await getAll();
-    this.finals = await getAll();
-    await setAssumptions(this.propsMap);
-    await this.setContext(this.propsMap);
-  }
-
-  setContext(targetMap) {
+  // * API FUNCTIONS *
+  async finish() {
     return new Promise(async (resolve, reject) => {
-      for (const [propName, limits] of Object.entries(this.context)) {
-        let prop = targetMap.get(propName);
-        for (const [limit, value] of Object.entries(limits)) {
-          prop.value[limit] = value;
-          if (limit === 'max') {
-            prop.fixed.max = true;
-          }
-          if (limit === 'min') {
-            prop.fixed.min = true;
-          }
-        }
-        targetMap.set(propName, prop);
-      }
+      console.log('-> Finishing');
+      let finalEnv = await this.finaliseEnvelope();
+      await this.correctMinMaxErrors(this.lastRoundResult);
+      this.displayAll(this.lastRoundResult, 4);
+      let dimensions = await this.optimiseForDrag(this.lastRoundResult, finalEnv);
+      await setAssumptions(this.finals);
+      await this.setContext(this.finals);
+      await this.setFinalDimensions(this.finals, dimensions);
+      await this.calculateAll(this.finals);
+      await this.correctMinMaxErrors(this.finals);
+      this.displayAll(this.finals, 4);
       resolve();
     });
   }
 
-  setConstraints(targetMap) {
-    return new Promise(async (resolve, reject) => {
-      for (let i = 0; i < this.activeConstrains.length; i++) {
-        let prop = targetMap.get(this.activeConstrains[i].propKey);
-        switch (prop.value.typeName) {
-          case 'quant':
-          case 'range':
-            prop.value.max = this.activeConstrains[i].value.max;
-            prop.value.min = this.activeConstrains[i].value.min;
-            break;
-          case 'list':
-          case 'qual':
-            prop.value.val = this.activeConstrains[i].value.val;
-            break;
-        }
-        targetMap.set(this.activeConstrains[i].propKey, prop);
-      }
-      resolve();
-    });
+  addContextSet(list) {
+    console.log(`-> Added Context Set of ${list.length} Items`);
+    for (let i = 0; i < list.length; i++) {
+      this.context.push({
+        propKey: list[i].propKey,
+        value: list[i].value,
+      });
+    }
   }
 
-  addContext(propKey, value) {
-    this.context[propKey] = value;
-  }
-
-  addConstraint(propKey, value) {
-    this.activeConstrains.push({
-      propKey: propKey,
-      value: value,
-    });
-    this.main();
+  addConstraintsSet(list) {
+    console.log(`-> Added Constraints Set of ${list.length} Items`);
+    for (let i = 0; i < list.length; i++) {
+      this.activeConstrains.push({
+        propKey: list[i].propKey,
+        value: list[i].value,
+      });
+    }
+    this.startSet();
   }
 
   getFinals() {
     return new Promise(async (resolve, reject) => {
-      resolve(this.finals);
+      resolve(this.filterUnpopulatedProps(this.finals));
     });
   }
 
   getCurrent() {
     return new Promise(async (resolve, reject) => {
-      resolve(this.lastRoundResult);
+      resolve(this.filterUnpopulatedProps(this.lastRoundResult));
     });
   }
 
-  async finishRound(limit) {
-    this.dimensionSets.push({
-      limit: limit,
-      valueSet: {
-        S: this.propsMap.get('S').value[limit],
-        cr: this.propsMap.get('cr').value[limit],
-        ct: this.propsMap.get('ct').value[limit],
-        TEsw: this.propsMap.get('TEsw').value[limit],
-      },
-    });
-    this.activeConstrains.pop();
-    this.displayAll(this.propsMap, 4);
-    this.lastRoundResult = new Map(this.propsMap);
-    this.propsMap = await getAll();
+  getReadyToFinish() {
+    return this.readyToFinishFlag;
   }
 
-  async main() {
-    await setAssumptions(this.propsMap);
-    await this.setContext(this.propsMap);
-    await this.setConstraints(this.propsMap);
-    await this.calculateEnvelope(this.propsMap);
-    await this.correctMinMaxErrors(this.propsMap);
-    this.displayAll(this.finals, 4);
-    let dimensionsVars = {
-      cr: 'max',
-      ct: 'max',
-      S: 'max',
-      TEsw: 'max',
+  reset() {
+    console.log('>> SYSTEM RESET <<');
+    this.context = [];
+    this.dimensionSets = [];
+    this.activeConstrains = [];
+    this.roundConstraintController = {
+      upper: 0,
+      lower: 0,
+      looped: false,
     };
-    if (this.checkDefinedNormal(this.propsMap, dimensionsVars)) {
-      this.finishRound('max');
-    }
-    if (this.checkDefinedMirror(this.propsMap, dimensionsVars)) {
-      this.finishRound('min');
-    }
-  }
-
-  async finaliseEnvelope() {
-    return new Promise(async (resolve, reject) => {
-      let finalEnv = {
-        S: {
-          max: 0,
-          min: 0,
-        },
-        cr: {
-          max: 0,
-          min: 0,
-        },
-        ct: {
-          max: 0,
-          min: 0,
-        },
-        TEsw: {
-          max: 0,
-          min: 0,
-        },
-      };
-      for (let i = 0; i < this.dimensionSets.length; i++) {
-        let currentSet = this.dimensionSets[i];
-        for (const [propName, propValue] of Object.entries(currentSet.valueSet)) {
-          if (propValue > finalEnv[propName][currentSet.limit]) {
-            finalEnv[propName][currentSet.limit] = propValue;
-          }
-        }
-      }
-      resolve(finalEnv);
-    });
-  }
-
-  async finish() {
-    return new Promise(async (resolve, reject) => {
-      let finalEnv = await this.finaliseEnvelope();
-      await this.correctMinMaxErrors(this.lastRoundResult);
-      let dimensions = await this.optimiseForDrag(this.lastRoundResult, finalEnv);
-      await setAssumptions(this.finals);
-      await this.setContext(this.finals);
-      await this.setFinalDimensions(this.finals, dimensions);
-      await this.calculateEnvelope(this.finals);
-      await this.correctMinMaxErrors(this.finals);
-      this.displayAll(this.finals, 4);
-      resolve();
-    });
+    this.finalDimensions = {};
+    this.readyToFinishFlag = false;
+    this.init();
   }
 }

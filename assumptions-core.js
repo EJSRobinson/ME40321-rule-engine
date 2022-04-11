@@ -32,9 +32,9 @@ const assumptions = {
   Mat: {
     val: 'aluminium',
   },
-  XCog: {
-    max: 1.2,
-    min: 1.2,
+  AoA: {
+    max: (5 * Math.PI) / 180,
+    min: (5 * Math.PI) / 180,
   },
   //Context
 };

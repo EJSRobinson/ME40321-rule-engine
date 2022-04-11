@@ -21,10 +21,10 @@ export default (fastify, opts, done) => {
     },
   });
 
-  fastify.post('/addConstraint', {
+  fastify.post('/addConstraintSet', {
     logLevel: 'info',
     handler: async (req, reply) => {
-      fastify.engine.addConstraint(req.body.propKey, req.body.value);
+      fastify.engine.addConstraintsSet(req.body.value);
       return reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -32,10 +32,10 @@ export default (fastify, opts, done) => {
     },
   });
 
-  fastify.post('/addContext', {
+  fastify.post('/addContextSet', {
     logLevel: 'info',
     handler: async (req, reply) => {
-      fastify.engine.addContext(req.body.propKey, req.body.value);
+      fastify.engine.addContextSet(req.body.value);
       return reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
@@ -67,8 +67,19 @@ export default (fastify, opts, done) => {
 
   fastify.post('/checkReadyToFinish', {
     logLevel: 'info',
-    handler: async (req, reply) => {
-      let result = await fastify.engine.checkReadyToFinish();
+    handler: (req, reply) => {
+      let result = fastify.engine.getReadyToFinish();
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ data: JSON.stringify(result, replacer) });
+    },
+  });
+
+  fastify.post('/reset', {
+    logLevel: 'info',
+    handler: (req, reply) => {
+      let result = fastify.engine.reset();
       return reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')

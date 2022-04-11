@@ -5,6 +5,7 @@ import Engine from './engine.js';
 
 class ApplicationApiServer {
   constructor() {
+    const port = 2700;
     this.fastify = Fastify({
       logger: false,
     });
@@ -19,7 +20,8 @@ class ApplicationApiServer {
     // this.fastify.register(auth);
     this.fastify.register(uiCalls, { prefix: '/api/v1' });
 
-    this.fastify.listen(2700, '::');
+    this.fastify.listen(port, '::');
+    console.log(`>> Started UI API server on port ${port} <<`);
     this.fastify.ready((err) => {
       if (err) {
         throw err;
