@@ -480,7 +480,6 @@ export default class Engine {
       console.log('-> Finishing');
       let finalEnv = await this.finaliseEnvelope();
       await this.correctMinMaxErrors(this.lastRoundResult);
-      this.displayAll(this.lastRoundResult, 4);
       let dimensions = await this.optimiseForDrag(this.lastRoundResult, finalEnv);
       await setAssumptions(this.finals);
       await this.setContext(this.finals);

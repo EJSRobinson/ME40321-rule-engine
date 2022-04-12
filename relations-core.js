@@ -277,7 +277,7 @@ export class Relations {
           },
           2: {
             enabled: true,
-            vars: { RowA: 'min', Fn: 'max', V: 'min', Aref: 'min' },
+            vars: { RowA: 'max', Fn: 'max', V: 'max', Aref: 'max' },
             solve: this.funcs.Cn[2],
           },
         },
