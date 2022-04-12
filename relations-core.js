@@ -275,6 +275,11 @@ export class Relations {
             vars: { AoA: 'max', Cna: 'max' },
             solve: this.funcs.Cn[1],
           },
+          2: {
+            enabled: true,
+            vars: { RowA: 'min', Fn: 'max', V: 'min', Aref: 'min' },
+            solve: this.funcs.Cn[2],
+          },
         },
       },
       // Tangential Force Coefficient

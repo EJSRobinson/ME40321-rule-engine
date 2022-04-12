@@ -15,4 +15,14 @@ export const Cn = {
       return updateMin(props, 'Cn', result.val);
     },
   },
+  2: {
+    normal: async (props, vars) => {
+      const result = await remoteSolvers('/Cn/2', buildInputs(props, vars));
+      return updateMax(props, 'Cn', result.val);
+    },
+    mirror: async (props, vars) => {
+      const result = await remoteSolvers('/Cn/2', buildMirrorInputs(props, vars));
+      return updateMin(props, 'Cn', result.val);
+    },
+  },
 };
