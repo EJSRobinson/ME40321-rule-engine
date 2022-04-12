@@ -17,7 +17,6 @@ export default class Engine {
     this.roundConstraintController = {
       upper: 0,
       lower: 0,
-      looped: false,
     };
     this.finalDimensions = {};
     this.readyToFinishFlag = false;
@@ -64,10 +63,10 @@ export default class Engine {
     let rows = [];
     for (let i = 0; i < this.activeConstrains.length; i++) {
       let markers = '';
-      if ((this.roundConstraintController.upper = i)) {
+      if (this.roundConstraintController.upper % this.activeConstrains.length === i) {
         markers += '<-U';
       }
-      if ((this.roundConstraintController.lower = i)) {
+      if (this.roundConstraintController.lower % this.activeConstrains.length === i) {
         markers += '<-L';
       }
       rows.push([this.activeConstrains[i].propKey, markers]);
@@ -257,26 +256,40 @@ export default class Engine {
     });
   }
 
+  setSingleConstraint(targetMap, i) {
+    let prop = targetMap.get(this.activeConstrains[i].propKey);
+    switch (prop.value.typeName) {
+      case 'quant':
+      case 'range':
+        prop.value.max = this.activeConstrains[i].value.max;
+        prop.value.min = this.activeConstrains[i].value.min;
+        break;
+      case 'list':
+      case 'qual':
+        prop.value.val = this.activeConstrains[i].value.val;
+        break;
+    }
+    console.log(`Setting ${this.activeConstrains[i].propKey}`);
+    targetMap.set(this.activeConstrains[i].propKey, prop);
+  }
+
   setRoundConstraints(targetMap) {
     return new Promise(async (resolve, reject) => {
-      for (
-        let i = this.roundConstraintController.lower;
-        i <= this.roundConstraintController.upper;
-        i++
-      ) {
-        let prop = targetMap.get(this.activeConstrains[i].propKey);
-        switch (prop.value.typeName) {
-          case 'quant':
-          case 'range':
-            prop.value.max = this.activeConstrains[i].value.max;
-            prop.value.min = this.activeConstrains[i].value.min;
-            break;
-          case 'list':
-          case 'qual':
-            prop.value.val = this.activeConstrains[i].value.val;
-            break;
+      let lowerConstLim = this.roundConstraintController.lower % this.activeConstrains.length;
+      let upperConstLim = this.roundConstraintController.upper % this.activeConstrains.length;
+      console.log(lowerConstLim);
+      console.log(upperConstLim);
+      if (lowerConstLim <= upperConstLim) {
+        for (let i = lowerConstLim; i <= upperConstLim; i++) {
+          this.setSingleConstraint(targetMap, i);
         }
-        targetMap.set(this.activeConstrains[i].propKey, prop);
+      } else {
+        for (let i = 0; i <= upperConstLim; i++) {
+          this.setSingleConstraint(targetMap, i);
+        }
+        for (let i = lowerConstLim; i < this.activeConstrains.length; i++) {
+          this.setSingleConstraint(targetMap, i);
+        }
       }
       resolve();
     });
@@ -299,42 +312,41 @@ export default class Engine {
       S: 'max',
       TEsw: 'max',
     };
+    this.roundConstraintController.upper += 1;
     if (this.checkDefinedNormal(this.propsMap, dimensionsVars)) {
       this.roundConstraintController.lower = this.roundConstraintController.upper;
-      this.finishRound();
+      this.finishRound(true);
     } else {
-      this.roundConstraintController.upper += 1;
-      if (this.roundConstraintController.upper >= this.activeConstrains.lengths) {
-        this.roundConstraintController.upper = 0;
-        this.roundConstraintController.looped = true;
-      }
-      this.finishRound();
+      this.finishRound(false);
     }
   }
 
-  async finishRound() {
-    this.dimensionSets.push({
-      limit: 'max',
-      valueSet: {
-        S: this.propsMap.get('S').value.max,
-        cr: this.propsMap.get('cr').value.max,
-        ct: this.propsMap.get('ct').value.max,
-        TEsw: this.propsMap.get('TEsw').value.max,
-      },
-    });
-    this.dimensionSets.push({
-      limit: 'min',
-      valueSet: {
-        S: this.propsMap.get('S').value.min,
-        cr: this.propsMap.get('cr').value.min,
-        ct: this.propsMap.get('ct').value.min,
-        TEsw: this.propsMap.get('TEsw').value.min,
-      },
-    });
+  async finishRound(roundSuccess) {
+    if (roundSuccess) {
+      this.dimensionSets.push({
+        limit: 'max',
+        valueSet: {
+          S: this.propsMap.get('S').value.max,
+          cr: this.propsMap.get('cr').value.max,
+          ct: this.propsMap.get('ct').value.max,
+          TEsw: this.propsMap.get('TEsw').value.max,
+        },
+      });
+      this.dimensionSets.push({
+        limit: 'min',
+        valueSet: {
+          S: this.propsMap.get('S').value.min,
+          cr: this.propsMap.get('cr').value.min,
+          ct: this.propsMap.get('ct').value.min,
+          TEsw: this.propsMap.get('TEsw').value.min,
+        },
+      });
+    }
     console.log('* Finished Round *');
     this.lastRoundResult = new Map(this.propsMap);
     this.propsMap = await getAll();
-    if (this.roundConstraintController.lower === this.activeConstrains.length - 1) {
+    await this.wait(5000);
+    if (this.roundConstraintController.lower >= this.activeConstrains.length) {
       this.finishSet();
     } else {
       this.startRound();
@@ -525,7 +537,6 @@ export default class Engine {
     this.roundConstraintController = {
       upper: 0,
       lower: 0,
-      looped: false,
     };
     this.finalDimensions = {};
     this.readyToFinishFlag = false;
