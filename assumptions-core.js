@@ -36,6 +36,10 @@ const assumptions = {
     max: (5 * Math.PI) / 180,
     min: (5 * Math.PI) / 180,
   },
+  t: {
+    max: 0.003,
+    min: 0.003,
+  },
   //Context
 };
 

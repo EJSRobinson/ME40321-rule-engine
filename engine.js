@@ -269,7 +269,6 @@ export default class Engine {
         prop.value.val = this.activeConstrains[i].value.val;
         break;
     }
-    console.log(`Setting ${this.activeConstrains[i].propKey}`);
     targetMap.set(this.activeConstrains[i].propKey, prop);
   }
 
@@ -277,8 +276,6 @@ export default class Engine {
     return new Promise(async (resolve, reject) => {
       let lowerConstLim = this.roundConstraintController.lower % this.activeConstrains.length;
       let upperConstLim = this.roundConstraintController.upper % this.activeConstrains.length;
-      console.log(lowerConstLim);
-      console.log(upperConstLim);
       if (lowerConstLim <= upperConstLim) {
         for (let i = lowerConstLim; i <= upperConstLim; i++) {
           this.setSingleConstraint(targetMap, i);
@@ -322,6 +319,7 @@ export default class Engine {
   }
 
   async finishRound(roundSuccess) {
+    this.displayAll(this.propsMap, 4);
     if (roundSuccess) {
       this.dimensionSets.push({
         limit: 'max',
@@ -345,7 +343,7 @@ export default class Engine {
     console.log('* Finished Round *');
     this.lastRoundResult = new Map(this.propsMap);
     this.propsMap = await getAll();
-    await this.wait(5000);
+    // await this.wait(5000);
     if (this.roundConstraintController.lower >= this.activeConstrains.length) {
       this.finishSet();
     } else {
@@ -356,7 +354,7 @@ export default class Engine {
   // * SET CONTROL *
 
   startSet() {
-    console.log('*-*-* Starting Set *-*-*');
+    console.log('*-*-* Started Set *-*-*');
     this.startRound();
   }
 
@@ -493,6 +491,7 @@ export default class Engine {
 
   addContextSet(list) {
     console.log(`-> Added Context Set of ${list.length} Items`);
+    this.context = [];
     for (let i = 0; i < list.length; i++) {
       this.context.push({
         propKey: list[i].propKey,
@@ -503,6 +502,7 @@ export default class Engine {
 
   addConstraintsSet(list) {
     console.log(`-> Added Constraints Set of ${list.length} Items`);
+    this.activeConstrains = [];
     for (let i = 0; i < list.length; i++) {
       this.activeConstrains.push({
         propKey: list[i].propKey,
@@ -525,6 +525,7 @@ export default class Engine {
   }
 
   getReadyToFinish() {
+    console.log(this.readyToFinishFlag);
     return this.readyToFinishFlag;
   }
 

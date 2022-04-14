@@ -72,7 +72,7 @@ export default (fastify, opts, done) => {
       return reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ data: JSON.stringify(result, replacer) });
+        .send({ data: result });
     },
   });
 
@@ -83,7 +83,7 @@ export default (fastify, opts, done) => {
       return reply
         .code(200)
         .header('Content-Type', 'application/json; charset=utf-8')
-        .send({ data: JSON.stringify(result, replacer) });
+        .send({ status: 'Ok' });
     },
   });
   done();
