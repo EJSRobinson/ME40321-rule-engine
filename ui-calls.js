@@ -65,6 +65,25 @@ export default (fastify, opts, done) => {
     },
   });
 
+  fastify.post('/export', {
+    logLevel: 'info',
+    handler: async (req, reply) => {
+      let result = await fastify.engine.export(req.body);
+      return reply.code(200).header('Content-Type', 'application/json;').send({ raw: result });
+    },
+  });
+
+  fastify.post('/exportData', {
+    logLevel: 'info',
+    handler: async (req, reply) => {
+      let result = await fastify.engine.export(req.body);
+      return reply
+        .code(200)
+        .header('Content-Type', 'application/json; charset=utf-8')
+        .send({ data: result.val });
+    },
+  });
+
   fastify.post('/checkReadyToFinish', {
     logLevel: 'info',
     handler: (req, reply) => {
