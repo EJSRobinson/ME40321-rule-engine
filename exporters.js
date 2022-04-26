@@ -87,7 +87,7 @@ export const plots = {
     const result = await exportClient('/Fn_S', inputs);
     return result;
   },
-  Fn_BM: async (mainMap) => {
+  BM_S: async (mainMap) => {
     // let inputs = {
     //   cr: mainMap.get('cr').value.max,
     //   Fn: mainMap.get('Fn').value.max,
@@ -108,10 +108,10 @@ export const plots = {
       },
       t: 0.003,
     };
-    const result = await exportClient('/Fn_BM', inputs);
+    const result = await exportClient('/BM_S', inputs);
     return result;
   },
-  Fn_Ang: async (mainMap) => {
+  Ang_S: async (mainMap) => {
     // let inputs = {
     //   cr: mainMap.get('cr').value.max,
     //   Fn: mainMap.get('Fn').value.max,
@@ -134,10 +134,10 @@ export const plots = {
       },
       t: 0.003,
     };
-    const result = await exportClient('/Fn_Ang', inputs);
+    const result = await exportClient('/Ang_S', inputs);
     return result;
   },
-  Fn_Defl: async (mainMap) => {
+  Defl_S: async (mainMap) => {
     // let inputs = {
     //   cr: mainMap.get('cr').value.max,
     //   Fn: mainMap.get('Fn').value.max,
@@ -160,7 +160,7 @@ export const plots = {
       },
       t: 0.003,
     };
-    const result = await exportClient('/Fn_Defl', inputs);
+    const result = await exportClient('/Defl_S', inputs);
     return result;
   },
   Fn_V_data: async (mainMap) => {
@@ -222,7 +222,7 @@ export const plots = {
     const result = await remoteSolvers('/Fn_S_data', inputs);
     return result;
   },
-  Fn_BM_data: async (mainMap) => {
+  BM_S_data: async (mainMap) => {
     // let inputs = {
     //   cr: mainMap.get('cr').value.max,
     //   Fn: mainMap.get('Fn').value.max,
@@ -243,10 +243,10 @@ export const plots = {
       },
       t: 0.003,
     };
-    const result = await remoteSolvers('/Fn_BM_data', inputs);
+    const result = await remoteSolvers('/BM_S_data', inputs);
     return result;
   },
-  Fn_Ang_data: async (mainMap) => {
+  Ang_S_data: async (mainMap) => {
     // let inputs = {
     //   cr: mainMap.get('cr').value.max,
     //   Fn: mainMap.get('Fn').value.max,
@@ -269,10 +269,10 @@ export const plots = {
       },
       t: 0.003,
     };
-    const result = await remoteSolvers('/Fn_Ang_data', inputs);
+    const result = await remoteSolvers('/Ang_S_data', inputs);
     return result;
   },
-  Fn_Defl_data: async (mainMap) => {
+  Defl_S_data: async (mainMap) => {
     // let inputs = {
     //   cr: mainMap.get('cr').value.max,
     //   Fn: mainMap.get('Fn').value.max,
@@ -295,7 +295,7 @@ export const plots = {
       },
       t: 0.003,
     };
-    const result = await remoteSolvers('/Fn_Defl_data', inputs);
+    const result = await remoteSolvers('/Defl_S_data', inputs);
     return result;
   },
 };

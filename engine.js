@@ -531,50 +531,8 @@ export default class Engine {
 
   async export(selection) {
     let result;
-    switch (selection) {
-      case 'Fn_V':
-        result = await plots.Fn_V(this.finals);
-        return result;
-      case 'Fn_M':
-        result = await plots.Fn_M(this.finals);
-        return result;
-      case 'Fn_AoA':
-        result = await plots.Fn_AoA(this.finals);
-        return result;
-      case 'Fn_S':
-        result = await plots.Fn_S(this.finals);
-        return result;
-      case 'Fn_BM':
-        result = await plots.Fn_BM(this.finals);
-        return result;
-      case 'Fn_Ang':
-        result = await plots.Fn_Ang(this.finals);
-        return result;
-      case 'Fn_Defl':
-        result = await plots.Fn_Defl(this.finals);
-        return result;
-      case 'Fn_V_data':
-        result = await plots.Fn_V_data(this.finals);
-        return result;
-      case 'Fn_M_data':
-        result = await plots.Fn_M_data(this.finals);
-        return result;
-      case 'Fn_AoA_data':
-        result = await plots.Fn_AoA_data(this.finals);
-        return result;
-      case 'Fn_S_data':
-        result = await plots.Fn_S_data(this.finals);
-        return result;
-      case 'Fn_BM_data':
-        result = await plots.Fn_BM_data(this.finals);
-        return result;
-      case 'Fn_Ang_data':
-        result = await plots.Fn_Ang_data(this.finals);
-        return result;
-      case 'Fn_Defl_data':
-        result = await plots.Fn_Defl_data(this.finals);
-        return result;
-    }
+    result = await plots[selection](this.finals);
+    return result;
   }
 
   reset() {
