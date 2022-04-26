@@ -30,6 +30,7 @@ import { Msw } from './callers/Msw.js';
 import { Sigma } from './callers/Sigma.js';
 import { Aref } from './callers/Aref.js';
 import { Dref } from './callers/Dref.js';
+import { v } from './callers/v_.js';
 
 export const core = {
   ct: ct,
@@ -47,7 +48,7 @@ export const core = {
   Fl: Fl,
   Fd: Fd,
   t: {},
-  v: {},
+  v: v,
   m: m,
   mT: mT,
   N: N,
