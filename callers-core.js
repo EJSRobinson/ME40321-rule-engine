@@ -28,6 +28,8 @@ import { RowA } from './callers/RowA.js';
 import { Cbar } from './callers/Cbar.js';
 import { Msw } from './callers/Msw.js';
 import { Sigma } from './callers/Sigma.js';
+import { Aref } from './callers/Aref.js';
+import { Dref } from './callers/Dref.js';
 
 export const core = {
   ct: ct,
@@ -66,4 +68,6 @@ export const core = {
   Cbar: Cbar,
   Msw: Msw,
   Sigma: Sigma,
+  Aref: Aref,
+  Dref: Dref,
 };

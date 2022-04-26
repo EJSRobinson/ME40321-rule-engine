@@ -354,37 +354,6 @@ export class Relations {
           },
         },
       },
-      // Stress
-      Sigma: {
-        type: 'symetric',
-        relations: {
-          1: {
-            enabled: false,
-            vars: { cr: '', ct: '', S: '', Cn: '', t: '' },
-            solve: this.funcs.testfunc,
-          },
-          2: {
-            enabled: false,
-            vars: { cr: '', ct: '', LEsw: '', Cn: '', t: '' },
-            solve: this.funcs.testfunc,
-          },
-          3: {
-            enabled: false,
-            vars: { cr: '', ct: '', TWsw: '', Cn: '', t: '' },
-            solve: this.funcs.testfunc,
-          },
-          4: {
-            enabled: false,
-            vars: { cr: '', TWsw: '', LEsw: '', Cn: '', t: '' },
-            solve: this.funcs.testfunc,
-          },
-          5: {
-            enabled: false,
-            vars: { ct: '', TWsw: '', LEsw: '', Cn: '', t: '' },
-            solve: this.funcs.testfunc,
-          },
-        },
-      },
       // Thickness
       t: {
         type: 'symetric',
@@ -716,6 +685,30 @@ export class Relations {
               t: 'max',
             },
             solve: this.funcs.Sigma[1],
+          },
+        },
+      },
+      Dref: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              Aref: 'max',
+            },
+            solve: this.funcs.Dref[1],
+          },
+        },
+      },
+      Aref: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              Dref: 'max',
+            },
+            solve: this.funcs.Aref[1],
           },
         },
       },
