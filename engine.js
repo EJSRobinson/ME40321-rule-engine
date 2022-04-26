@@ -530,6 +530,7 @@ export default class Engine {
   }
 
   async export(selection) {
+    console.log(`Export request for: ${selection}`);
     let result;
     result = await plots[selection](this.finals);
     return result;
