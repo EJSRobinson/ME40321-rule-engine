@@ -117,6 +117,19 @@ export const plots = {
     const result = await exportClient('/Defl_S', inputs);
     return result;
   },
+  Stress_S: async (mainMap) => {
+    let inputs = {
+      cr: mainMap.get('cr').value.max,
+      Fn: mainMap.get('Fn').value.max,
+      Afin: mainMap.get('Afin').value.max,
+      TEsw: mainMap.get('TEsw').value.max,
+      LEsw: mainMap.get('LEsw').value.max,
+      S: mainMap.get('S').value.max,
+      t: mainMap.get('t').value.max,
+    };
+    const result = await exportClient('/Stress_S', inputs);
+    return result;
+  },
   Fn_V_data: async (mainMap) => {
     let inputs = {
       V: mainMap.get('V').value.max,
@@ -202,6 +215,19 @@ export const plots = {
       t: mainMap.get('t').value.max,
     };
     const result = await remoteSolvers('/Defl_S_data', inputs);
+    return result;
+  },
+  Stress_S_data: async (mainMap) => {
+    let inputs = {
+      cr: mainMap.get('cr').value.max,
+      Fn: mainMap.get('Fn').value.max,
+      Afin: mainMap.get('Afin').value.max,
+      TEsw: mainMap.get('TEsw').value.max,
+      LEsw: mainMap.get('LEsw').value.max,
+      S: mainMap.get('S').value.max,
+      t: mainMap.get('t').value.max,
+    };
+    const result = await remoteSolvers('/Stress_S_data', inputs);
     return result;
   },
 };

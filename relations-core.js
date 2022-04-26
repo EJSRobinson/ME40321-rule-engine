@@ -701,6 +701,24 @@ export class Relations {
           },
         },
       },
+      Sigma: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              cr: 'max',
+              Fn: 'max',
+              Afin: 'max',
+              TEsw: 'max',
+              LEsw: 'max',
+              S: 'max',
+              t: 'max',
+            },
+            solve: this.funcs.Sigma[1],
+          },
+        },
+      },
     };
   }
   addFiredFields() {

@@ -27,6 +27,7 @@ import { CnaTot } from './callers/CnaTot.js';
 import { RowA } from './callers/RowA.js';
 import { Cbar } from './callers/Cbar.js';
 import { Msw } from './callers/Msw.js';
+import { Sigma } from './callers/Sigma.js';
 
 export const core = {
   ct: ct,
@@ -43,7 +44,6 @@ export const core = {
   Cd: Cd,
   Fl: Fl,
   Fd: Fd,
-  Sigma: {},
   t: {},
   v: {},
   m: m,
@@ -65,4 +65,5 @@ export const core = {
   CnaTot: CnaTot,
   Cbar: Cbar,
   Msw: Msw,
+  Sigma: Sigma,
 };
