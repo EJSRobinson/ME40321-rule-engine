@@ -731,6 +731,24 @@ export class Relations {
           },
         },
       },
+      Vcr: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              cr: 'max',
+              t: 'max',
+              TR: 'max',
+              AR: 'max',
+              Ta: 'min',
+              Alt: 'min',
+              Mat: 'val',
+            },
+            solve: this.funcs.Vcr[1],
+          },
+        },
+      },
     };
   }
   addFiredFields() {

@@ -31,6 +31,7 @@ import { Sigma } from './callers/Sigma.js';
 import { Aref } from './callers/Aref.js';
 import { Dref } from './callers/Dref.js';
 import { v } from './callers/v_.js';
+import { Vcr } from './callers/Vcr.js';
 
 export const core = {
   ct: ct,
@@ -71,4 +72,5 @@ export const core = {
   Sigma: Sigma,
   Aref: Aref,
   Dref: Dref,
+  Vcr: Vcr,
 };
