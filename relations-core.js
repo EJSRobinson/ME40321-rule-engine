@@ -749,6 +749,49 @@ export class Relations {
           },
         },
       },
+      C1: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              RowA: 'max',
+              V: 'max',
+              Aref: 'max',
+              Cna: 'max',
+              Kn: 'max',
+            },
+            solve: this.funcs.C1[1],
+          },
+        },
+      },
+      Wn: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              C1: 'max',
+              I: 'min',
+            },
+            solve: this.funcs.Wn[1],
+          },
+        },
+      },
+      Zeta: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              C2: 'max',
+              C1: 'min',
+              I: 'min',
+            },
+            solve: this.funcs.Zeta[1],
+          },
+        },
+      },
     };
   }
   addFiredFields() {

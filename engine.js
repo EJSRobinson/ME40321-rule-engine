@@ -60,6 +60,31 @@ export default class Engine {
     console.table(rows);
   }
 
+  displaySimple(target, dps) {
+    const mult = 10 ** dps;
+    let rows = [];
+    for (const [key, prop] of target.entries()) {
+      switch (prop.value.typeName) {
+        case 'quant':
+          if (prop.value.max !== null) {
+            rows.push([key, 'Defined', 'Defined']);
+          } else {
+            rows.push([key, null, null]);
+          }
+          break;
+        case 'list':
+        case 'qual':
+          if (prop.value.max !== null) {
+            rows.push([key, 'Defined', 'Defined']);
+          } else {
+            rows.push([key, null, null]);
+          }
+          break;
+      }
+    }
+    console.table(rows);
+  }
+
   displayConstraints() {
     let rows = [];
     for (let i = 0; i < this.activeConstrains.length; i++) {
@@ -321,6 +346,7 @@ export default class Engine {
 
   async finishRound(roundSuccess) {
     this.displayAll(this.propsMap, 4);
+    this.displaySimple(this.propsMap, 4);
     if (roundSuccess) {
       this.dimensionSets.push({
         limit: 'max',

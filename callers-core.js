@@ -32,6 +32,9 @@ import { Aref } from './callers/Aref.js';
 import { Dref } from './callers/Dref.js';
 import { v } from './callers/v_.js';
 import { Vcr } from './callers/Vcr.js';
+import { C1 } from './callers/C1.js';
+import { Wn } from './callers/Wn.js';
+import { Zeta } from './callers/Zeta.js';
 
 export const core = {
   ct: ct,
@@ -59,9 +62,9 @@ export const core = {
   Kn: Kn,
   M: M,
   V: V,
-  C1: {},
-  Wn: {},
-  Zeta: {},
+  C1: C1,
+  Wn: Wn,
+  Zeta: Zeta,
   Tp: {},
   Fn: Fn,
   Ft: Ft,
