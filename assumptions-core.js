@@ -30,7 +30,7 @@ const assumptions = {
     val: 'flatPlateF',
   },
   Mat: {
-    val: 'aluminium',
+    val: 'aluminium_generic',
   },
   AoA: {
     max: (5 * Math.PI) / 180,

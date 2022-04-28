@@ -35,6 +35,7 @@ import { Vcr } from './callers/Vcr.js';
 import { C1 } from './callers/C1.js';
 import { Wn } from './callers/Wn.js';
 import { Zeta } from './callers/Zeta.js';
+import { Tp } from './callers/Tp.js';
 
 export const core = {
   ct: ct,
@@ -65,7 +66,7 @@ export const core = {
   C1: C1,
   Wn: Wn,
   Zeta: Zeta,
-  Tp: {},
+  Tp: Tp,
   Fn: Fn,
   Ft: Ft,
   RowA: RowA,

@@ -792,6 +792,18 @@ export class Relations {
           },
         },
       },
+      Tp: {
+        type: 'symetric',
+        relations: {
+          1: {
+            enabled: true,
+            vars: {
+              Wn: 'max',
+            },
+            solve: this.funcs.Tp[1],
+          },
+        },
+      },
     };
   }
   addFiredFields() {
